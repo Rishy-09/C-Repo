@@ -1,0 +1,308 @@
+// A void value not ignored as it ought to be error is a compilation error that occurs when a function declared as void is used in an expression where a value is expected. This error indicates that the programmer has tried to use the result of a void function, but the result of a void function is undefined and cannot be used in expressions 
+
+# include <stdio.h>
+# include <stdlib.h>
+void display();
+
+int main ()
+{
+    printf("Learn C\n");
+    display();
+    return 0;    
+}
+void display() //  infinite loop is created.
+{
+    printf("Followed by C++, C# and Java!\n");
+    main();
+}
+
+
+#include <math.h>
+#include <stdio.h>
+
+int factorial(int n, int *fact)
+{
+int x;
+
+*fact = 1;
+printf("Enter any number to get factorial of: \n");
+scanf("%d", &n);
+
+for(x = 1; x <= n; x++)
+{
+    *fact = *fact * x;
+}
+return (*fact);
+    
+}
+
+// Driver Code
+int main()
+{
+int fact;
+int num;
+factorial(num, &fact);
+printf("Factorial is %d", fact);
+return 0;
+}
+
+
+#include <stdio.h>
+#include <math.h>
+/*void message();
+int main()
+{
+        message ();
+        printf("Cry, and you stop the monotony!\n");
+        return 0;
+}
+void message()
+{
+    printf("Smile, and the world smiles with you....\n");
+}*/
+void italy();
+void argentina();
+void brazil();
+int main()
+{
+    printf("I am in main\n");
+    brazil();
+    italy();
+    argentina();
+    return 0;
+}
+void italy()
+{
+    printf("I am in italy.\n");
+}
+void argentina()
+{
+    printf("I am in argentina.\n");
+}
+void brazil()
+{
+    printf("I am in brazil.\n");
+}
+
+
+#include <stdio.h>
+#include <math.h>
+void brazil();
+void italy();
+void argentina();
+int main()
+{
+    printf("I am in main\n");
+    italy();
+    printf("I am finally back in main\n");
+    return 0;
+}
+void italy()
+{
+    printf("I am in italy.\n");
+    brazil();
+    printf("I  am back in italy.\n");
+}
+void brazil()
+{
+    printf("I am in brazil.\n");
+    argentina();
+}
+void argentina()
+{
+    printf("I am in argentina.\n");
+}
+
+void message();
+int main()
+{
+    message();
+    return 0;
+}
+void message()
+{
+    printf("Can't imagine life without C.\n");
+    main();
+    // it is printed finite number of times and not infinte number of times . Why?
+}
+
+void message();
+int main()
+{
+    message();
+    message();
+    return 0;
+}
+void message()
+{
+    printf("Jewel Thief!\n");
+}
+
+void message1();
+void message2();
+int main()
+{
+    message1();
+    message2();
+    return 0;
+}
+void message2()
+{
+    printf("But the butter was bitter.\n");
+}
+void message1()
+{
+    printf("Mary bought some butter.\n");
+}
+
+int main()
+{
+    printf("I am in main\n");
+    void argentina()
+    {                     // yaha error aa raha hai but pehla print ho raha hai.
+        printf("I am in argentina.\n");
+    }
+}
+
+int calsum(int x, int y, int z);
+int main()
+{
+    int a, b, c, sum;
+    printf("Enter the three numbers.\n");
+    scanf("%d %d %d", &a, &b, &c);
+    sum = calsum(a, b, c);
+    printf("Sum = %d\n", sum);
+    return 0;
+}
+int calsum(int x, int y, int z)
+{
+    int d;
+    d = x+y+z;
+    return (d);
+}
+
+int fun()
+{
+    int n;
+    printf("Enter any number. \n");
+    scanf("%d", &n);
+    if (n>=10 && n<=90)
+        return (n);
+    else
+       return (n+32);
+       // "%5d" used in printf() and provide 5 spaces counting from the output itself from right to left.
+ }
+
+#include <stdio.h>
+#include <math.h>
+int fun(void);
+int main()
+{
+    int a;
+    a = fun();
+    printf("%d", a);
+}
+int fun(void)
+{
+    int n;
+    printf("Enter any number. \n");
+    scanf("%d", &n);
+    if (n>=10 && n<=90)
+        return (n);
+    else
+       return (n+32);
+       // "%5d" used in printf() and provide 5 spaces counting from the output itself from right to left.
+}
+
+void fun(int);
+int main()
+{
+    int a=30;
+    fun(a);
+    printf("%d\n", a);
+    return 0;
+}
+void fun (int b)
+{
+    b = 60;
+    printf("%d\n", b);
+}
+
+#include <stdio.h>
+#include <math.h>
+void display (int);
+int main()
+{
+    int i=20;
+    display(i);
+    return 0;
+}
+void display(int j)
+{
+    int k = 35;
+    printf("%d\n", j);
+    printf("%d", k);
+}
+{
+    int a = 1;
+    printf("%d %d %d", a, ++a, a++);
+    //here it is working or taking value from right to left and so increasing value of a accordingly.
+}
+
+int main()
+{
+    float a=0.5;
+    float w, x, y, z;
+    w = sin(a);
+    x = cos(a);
+    y = tan (a);    //using library functions.
+    z = pow(a, 2);
+    printf("%f %f %f %f\n", w, x, y, z);
+    return 0;
+}
+
+#include <stdio.h>
+double sin(double);
+double cos(double);
+double tan(double);
+double pow(double,double);
+    int main()
+{
+    float a=0.5;
+    float w, x, y, z;
+    w = sin(a);
+    x = cos(a);
+    y = tan (a);    //using library functions.
+    z = pow(a, 2);
+    printf("%f %f %f %f\n", w, x, y, z);
+    return 0;
+}
+
+    int main()
+{
+    int i=10, j = 20;
+    printf("%d %d %d\n", i, j);  //one random value is generated.
+    printf("%d\n", i, j);  // value of  j will not be printed.
+    return 0;  //no error will occur.
+}
+
+
+#include <stdio.h>
+float square(float);
+int main()
+{
+    float a, b;
+    printf("Enter any number.");
+    scanf("%f", &a);
+    b = square(a);
+    printf("Ther square if %f is %f\n", a, b);
+    return 0;
+}// pehla float is for return type which is float.
+float square (float x) // yaha liya bhi hai aur diya bhi hai.
+// dusra jo value dusre function se lenge.
+
+{
+    float y;
+    y = x*x;
+    return (y);
+}

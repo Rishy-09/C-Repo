@@ -1,0 +1,889 @@
+ #include<stdio.h>
+
+int main()
+{
+
+    struct
+{
+    int x, y;  // here x is the 1st, 3rd, 5th .... element of this array and y is the 2nd, 4th, 6th, 8th ....element array of it.
+}s[] = { 10, 20, 15, 25, 8, 75, 6, 2 };
+int *i;
+i = s;
+
+printf("%d\n",*(i+3));                     
+printf("%d\n",s[i[7]].x);                   
+printf("%d\n",s[(s+2)->y/3[i]].y);      
+printf("%d\n",i[i[1]-i[2]]);      
+printf("%d\n",i[s[3].y]);      
+printf("%d\n",(s+1)->x + 5);      
+printf("%d\n",*(1+i)**(i+4)/(*i));    
+printf("%d",s[i[0]-i[4]].y+10);    
+printf("%d",(*(s+*(i+1)/(*i))).x + 2);     
+printf("%d",++i[i[6]]);    
+
+}
+
+ #include<stdio.h>
+
+int main()
+{
+   struct book
+   {
+      char name;
+      float price;
+      int pages;
+
+   };
+   struct book b1, b2, b3;
+
+   printf("Enter names, prices & no. of pages of 3 books\n");
+
+   scanf("%c %f %d", &b1.name, &b1.price, &b1.pages);
+   scanf("\n");  // to able to get next input used to clear buffer may be...
+   scanf("%c %f %d", &b2.name, &b2.price, &b2.pages);
+   scanf("\n");
+   scanf("%c %f %d", &b3.name, &b3.price, &b3.pages);
+
+   printf("And this you have entered\n");
+
+   printf("%c %f %d\n", b1.name, b1.price, b1.pages);
+   printf("%c %f %d\n", b2.name, b2.price, b2.pages);
+   printf("%c %f %d\n", b3.name, b3.price, b3.pages);
+
+}
+_________________________________________________________________________________________
+
+// structure declaration.
+   /*struct book
+   {
+      char name;
+      float price;
+      int pages;
+
+   }; 
+   struct book b1,b2, b3; */
+
+   /* struct book
+   {
+      char name;
+      float price;
+      int pages;
+   }b1, b2, b3; */
+
+   /*struct 
+   {
+      char name;
+      float price;
+      int pages;
+
+   }b1,b2,b3; */
+
+   /*struct book
+   {
+      char name;
+      float price;
+      int pages;
+
+   };
+   struct book b1 = {"Basic", 130.00, 550};
+   struct book b2 = {"Physics", 150.80, 800};
+   struct book b3 = {0}; */
+
+ _________________________________________________________________________________________
+
+  struct book
+   {
+      char name;
+      float price;
+      int pages;
+   };
+   struct book b1 = {'B', 130.00, 550}; // 6422292  yaha bhi 4 kaa diff. hai jo ki samjhaa hai..
+   printf("Address of name = %u\n", &b1.name);  // 6422296
+   printf("Address of price = %u\n", &b1.price);  // 6422300
+   printf("Address of pages = %u\n", &b1.pages);
+   return 0;
+__________________________________________________________________________________________
+
+// array of structures.
+void linkfloat();
+int main()
+{
+   struct book
+   {
+      char name;
+      float price;
+      int pages;
+   };
+
+   struct book b[100];
+   int i;
+
+   for (i = 0;i<=99;i++){
+      printf("Enter name, price, pages.");
+      fflush(stdin);
+      scanf("%c %f %d", &b[i].name, &b[i].price, &b[i].pages);
+   }
+
+   for (i=0;i<=99;i++){
+      printf("%c %f %d\n", b[i].name, b[i].price, b[i].pages);
+   }
+   return 0;
+}
+
+void linkfloat()
+{
+   float a=0, *b;
+   b = &a; /*cause emulator to be linked*/
+   a = *b; /*suppress the warning - variable not used*/
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+   struct employee
+   {
+      char name[10];
+      int age;
+      float salary;
+   };
+   struct employee e1 = {"Sanjay", 30, 5500.0};
+   struct employee e2, e3;
+   /*piece-meat copying*/
+   strcpy (e2.name, e1.name);
+   e2.age=e1.age;
+   e2.salary = e1.salary;
+
+   // copying all the elements at one go.
+   e3=e2;
+   printf("%s %d %f\n", e1.name, e1.age, e1.salary);
+   printf("%s %d %f\n", e2.name, e2.age, e2.salary);
+   printf("%s %d %f", e3.name, e3.age, e3.salary);
+
+  
+   return 0;
+}
+______________________________________________________________________________________
+
+// nesting in structure.
+   struct address
+   {
+      char phone[15];
+      char city[25];
+      int pin;
+
+   };
+   struct emp
+   {
+      char name[50];
+      struct address a;
+   };
+   struct emp e = {"jery", "531046", "nagpur", 10};
+   printf("name = %s phone = %s\n", e.name, e.a.phone);
+   printf("city = %s pin = %d\n", e.a.city, e.a.pin);
+
+   return 0;
+
+__________________________________________________________________________________________
+
+#include<stdio.h>
+#include<string.h>
+void display (char *, char *, int);
+int main()
+{
+   struct book
+   {
+      char name[25];
+      char author[25];
+      int callno;
+
+   };
+   struct book b1 = {"Let us C", "YPK", 101};
+   display (b1.name, b1.author, b1.callno);
+   return 0;
+
+}
+
+void display (char *s, char *t, int n)
+{
+   printf("%s %s %d\n", s, t, n);
+}
+________________________________________________________________________________________
+
+#include<stdio.h>
+#include<string.h>
+struct book
+   { // passing whole structure.
+      char name[25];
+      char author[25];
+      int callno;
+
+   };
+void display (struct book);
+int main()
+{
+   
+   struct book b1 = {"Let us C", "YPK", 101};
+   display (b1);
+   return 0;
+
+}
+
+void display (struct book b)
+{
+   printf("%s %s %d\n", b.name, b.author, b.callno);
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+#include<string.h>
+
+int main()
+{  // via pointers 
+   struct book
+   {
+      char name[25];
+      char author[25];
+      int callno;
+
+   };
+   struct book b1 = {"Let us C", "YPK", 101};
+   struct book *ptr;
+   ptr = &b1;
+   printf("%s %s %d\n", b1.name, b1.author, b1.callno);
+   printf("%s %s %d\n", ptr->name, ptr->author, ptr->callno);
+   return 0;
+
+}
+________________________________________________________________________________________________
+
+#include<stdio.h>
+struct book
+{
+   char name[25];
+   char author[25];
+   int callno;
+
+};
+void display (struct book *);
+#include<string.h>
+/*passing address of a structure variable*/
+int main()
+{
+   struct book b1 = {"Let Us C", "ypk", 101};
+   display (&b1);
+}
+void display(struct book *b)
+{
+   printf("%s %s %d\n", b->name, b->author, b->callno);
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+struct emp  // gap of 4 bytes each so have read.
+{
+   int a;
+   char ch;
+   float s;
+
+};
+
+int main()
+{
+   struct emp e;
+   printf("%u %u %u\n", &e.a, &e.ch, &e.s);
+   return 0;
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+// so solution for it.
+#pragma pack()
+struct emp  // ab respective data type ke according bytes in memory gap ayaaa.
+{
+   int a;
+   char ch;
+   float s;
+};
+# pragma pack()
+int main()
+{
+   struct emp e;
+   printf("%u %u %u\n", &e.a, &e.ch, &e.s);
+}
+_________________________________________________________________________________________-
+
+
+ #include <stdio.h>
+
+void print_names(int);
+void print_data(int);
+struct student
+{
+    int rollno;
+    char name[30];
+    char Department[40];
+    char Course[60];
+    int year_of_joining;
+
+}details[450] = { 03, "Kishor", "IT", "B.tech", 2014,
+10, "Mohammad Siraj Alam", "Computer Science", "B.Tech", 2014,
+53, "Deepak", "Computer Applications", "BCA", 2013,
+13, "Karan", "Mechanical", "Diploma", 2013,
+1, "Aakash", "Tool and Die", "Diploma", 2012,
+2, "Ramesh", "IT", "B.tech", 2014
+};
+int main()
+{
+    int year, roll;
+    printf("Enter the year to get the list of students who joined on that year: ");
+    scanf("%d", &year);
+    print_names(year);
+    printf("\n\n");
+    printf("Enter the roll  no. to get the details of student\n");
+    scanf("%d", &roll);
+    print_data(roll);
+}
+void print_names(int year)
+{
+    for (int i = 0;i<450;i++){
+        if (details[i].year_of_joining == year){
+            printf("%s\n", details[i].name);
+        }
+    }
+}
+
+void print_data(int rollno)
+{
+    for (int i=0;i<450;i++){
+        if (details[i].rollno == rollno){
+            printf("Roll no. is %d\nName is %s\nDeparment is %s\nCourse is %s\nYear of joining is %d",details[i].rollno, details[i].name, details[i].Department, details[i].Course, details[i].year_of_joining);
+            printf("\n");
+        }
+    }
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+#define SIZE 56
+void balance_notification();
+void choice();
+struct bank_customers
+{
+    unsigned int account_no;
+    char name[40];
+    double Balance_in_account;
+
+}details[200] = { 1, "Siraj", 1000000,
+2, "Azad", 1233044,
+3, "Deepak", 99,
+4, "Rihan", 33,
+5, "Rahul Khowal", 200000
+};
+
+int main()
+{
+   
+    printf("The list of accounts that have low balance are: \n");
+    balance_notification();
+    printf("\n\n");
+    choice();
+}
+
+
+void balance_notification()
+{
+    for (int i =0;i<200;i++){
+        if ( details[i].Balance_in_account < 100){
+                printf("The account balance is low!\nAccount number is %d\nName is %s", details[i].account_no, details[i].name);
+                printf("\n\n");
+        }
+    }
+}
+
+void choice()
+{
+    int money, acc, code;
+    printf("Press any key twice if you want to deposite or withdrawal\n");
+    getch(); 
+
+    if (getch()){
+        printf("Enter the account no.: ");
+        scanf("%d", &acc);
+        printf("\nEnter the amount: ");
+        scanf("%d", &money);
+        printf("\nEnter the code: (1 for deposite, 0 for withdrawal)\n");
+        fflush(stdin);
+        scanf("%d", code);
+        
+        for (int i=0;i<200;i++){
+            if (details[i].account_no == acc){
+                if (code == 1){
+                    details[i].Balance_in_account +=money;
+                    printf("The balance is %d\n", details[i].Balance_in_account);
+                }
+
+                else if (code == 0){
+                    details[i].Balance_in_account -=money;
+                    if (details[i].Balance_in_account < 100){
+                        printf("The balance is insufficient for the specified withdrawal\n");
+                    }
+                    else {
+                        printf("The balance is %d\n",details[i].Balance_in_account);
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+______________________________________________________________________________
+#include<stdio.h>
+struct engine
+{
+    char serial[4];
+    int yom;
+    char mat[50];
+    int quantity;
+
+}maruti[10] = { "AA0", 2005, "Iron", 20,
+"BB1", 2007, "Steel", 13,
+"BB2", 1992, "Aluminium", 57,
+"CC1", 2005, "Stainless Steel", 7,
+"CC6", 2007, "Steel", 34,
+"CC7", 2010, "Steel", 14
+};
+void eng_info(char*, char*);
+int main()
+{
+    char from[5], to[5];
+    printf("Enter the serial number, from where to where the list will go\n");
+    scanf("%s %s", from, to);
+    system("cls");
+    eng_info(from, to);
+    return 0;
+}
+
+void eng_info(char *from, char *to)
+{
+    char first_letter;
+    int last_digit;
+    int i;
+    printf("\n\tEngines Information\n");
+    for (i =0; maruti[i].serial[0] != *from; i++);
+     while (1)
+    {
+        printf("\nSerial Number : %s", maruti[i].serial);
+        printf("\nYear Of Manufacture : %d", maruti[i].yom);
+        printf("\nMaterail Used : %s", maruti[i].mat);
+        printf("\nQuantity : %d\n", maruti[i].quantity);
+        if (i==10){
+            i=0;
+        }
+        i++;
+        if (maruti[i].serial[0] == *to &&  maruti[i].serial[2] == *(to + 2))
+        {
+            printf("\nSerial Number : %s", maruti[i].serial[0]);
+            printf("\nYear Of Manufacture : %d", maruti[i].yom);
+            printf("\nMaterail Used : %s", maruti[i].mat);
+            printf("\nQuantity : %d\n", maruti[i].quantity);
+            return;
+        }   
+}
+______________________________________________________________________________
+#include<stdio.h>
+#define MAX 20
+int compare(const void * a, const void * b);
+
+/*A record contains the name of the cricketer, his age, the number of test matches that he has played and the average runs that he has scored in each test match. Create an array of structure to hold records of 20 such cricketers and then write a program to read these records and arrange them in ascending order by average runs. Use the qsort( ) standard library function.*/
+struct cricket
+{
+    float avg;
+    char name[30];
+    int age;
+    int matches_play;
+    
+
+}india[MAX] = {
+    122, "Sachin Tendulkar", 30, 67,
+    97, "Virendra Sehwag", 35, 56,
+    66, "Irfan Pathan", 32, 45,
+    153, "Yusuf Pathan", 36, 21,
+    101, "Yuvaraj Singh", 32, 45,
+};
+/*The C library function void qsort(void *base, size_t nitems, size_t size, int (*compar)(const void *, const void)) sorts an array.
+
+Declaration
+Following is the declaration for qsort() function.
+
+void qsort(void base, size_t nitems, size_t size, int (*compar)(const void *, const void))
+Parameters
+base − This is the pointer to the first element of the array to be sorted.
+
+nitems − This is the number of elements in the array pointed by base.
+
+size − This is the size in bytes of each element in the array.
+
+compar − This is the function that compares two elements.
+
+Return Value
+This function does not return any value.
+
+a and b: These are the pointer to the elements to be compared */
+int main()
+{
+    int i;
+    qsort(india, 5, sizeof(struct cricket), compare);
+    for (i = 0; i < 5; i++)
+    {
+        printf("Name : %s", india[i].name);
+        printf("\nAge : %d", india[i].age);
+        printf("\nTotal Test Matches played : %d", india[i].matches_play);
+        printf("\nAverage Run : %f\n\n\n", india[i].avg);
+    }
+    
+    return 0;
+
+}
+
+int compare(const void * a, const void * b)
+{
+    return (*(int*)b - *(int*)a);
+    /*// Return -1 if you want ascending, 1 if you want descending order.
+     // Return 1 if you want ascending, -1 if you want descending order.
+      /* Avoid return x - y, which can cause undefined behaviour
+       because of signed integer overflow. */
+}
+_______________________________________________________________________________
+#include<stdio.h>
+struct employee
+{
+    int code;
+    char name[30];
+    int date_of_join[3];
+
+
+}details[10]  = {
+
+    001, "Shahnawaz", 13, 1,2006,
+    004, "Amit Puri", 21, 6,2008,
+    102, "Irfan Moin", 12, 5, 2012,
+    131, "Shabnam", 16, 1, 2014
+};
+int main()
+{
+    int date[3];
+
+    printf("Enter the current date (dd mm yyyy) to get the tenure of past 3 years of employees\n");
+    scanf("%d %d %d", &date[0], &date[1], &date[2]);
+    printf("\n\n");
+    for (int i =0;i<4;i++){
+        if (date[2] -details[i].date_of_join[2] > 3){  // pehle greater than 3 ka dekhaaa
+            printf("%s\n", details[i].name);
+        }
+        else if (date[2] - details[i].date_of_join[2] == 3){ // phir equal to e3 me check karaa aur months kaa diff. dekhaa
+
+            if(date[1] - details[i].date_of_join[1] > 0){
+                printf("%s\n", details[i].name);
+            }
+                else if (date[1] == details[i].date_of_join[1]){ // agar months equal ayaa to days kaa dekhaaa
+
+                    if (date[0] - details[i].date_of_join[0] >= 0){ // so nested loop has been used
+                        printf("%s\n", details[i].name);
+                    }
+                }
+            }
+        }
+
+        
+    }
+_____________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#include<string.h>
+#include<windows.h>
+// working of a library.
+int count();
+void addbook();
+void display(int);
+void giv_books(char *);
+void which1(int);
+void order_arr();
+struct library
+{
+    int sess_no;
+    char title[80];
+    char author_name[30];
+    float price;
+    int flag;
+
+
+}lib[50] = {
+    1, "Let Us C", "Yashavant Kanethkar", 258, 1,
+    2, "Data Structure Through C", "Yashavant Kanethkar", 300, 1,
+    3, "Let Us C++", "Yashavant Kanethkar", 220, 1,
+    4, "Harry Potter : The Philosopher's Stone", "J. K. Rowling", 550, 0,
+    5, "The Two Towers", "J. R. R. Tolkien", 560, 0,
+    6, "The Hobbit", "J. R. R. Tolkien", 550, 1,
+    7, "The Fellowship of the Ring", "J. R. R. Tolkien", 550, 0
+};
+
+int main()
+{
+    int ans = 1, a_n;
+    char auth[30];
+    while(ans != 7)
+    {
+        system("cls");
+        printf("\nYou are in Menu section\n");
+        printf("\n1. Add Book Information");
+        printf("\n2. Display Book Information");
+        printf("\n3. List all books of given author");
+        printf("\n4. List the title of specified book");
+        printf("\n5. List the counts of the books in library");
+        printf("\n6. List the books in order of accession number");
+        printf("\n7. Exit");
+        printf("\n\n\tEnter your choice : ");
+        fflush(stdin);
+        scanf("%d", &ans); // using the same variable for two purposes as 'ans'
+    
+
+    switch(ans)
+    {
+        case 1:
+        addbook();
+        break;
+
+        case 2:
+        printf("\nEnter the accession number of the book");
+        scanf("%d", &a_n);
+        display(a_n);
+        getch();
+        break;
+
+        case 3:
+        while (getchar() != '\n');
+        printf("Enter the name of the author: \n");
+        scanf("%[^\n]s", &auth);
+        giv_books(auth);
+        getch();
+        break;
+
+        case 4:
+        printf("Enter the accession number of book : \n");
+        scanf("%d", &a_n); // same var is used or utilized here::
+        which1(a_n);
+        getch();
+        break;
+
+        case 5:
+        printf("\nTotal number of books : %d", count());
+        getch();
+        break;
+
+        case 6:
+        order_arr();
+        getch();
+        break;
+
+        case 7: // and so here too.
+        return 0;
+        exit(1);
+
+        default:
+        printf("\nWrong choice, Try Again!!");
+        getch();
+        break;
+
+    }
+    }
+    getch();
+    return 0;  // handling case 7 here too.
+
+}
+
+int count()
+{
+    int i=0;
+    while (lib[i].sess_no){
+        i++;
+        
+    }
+    return i;
+}
+
+void display(int i){
+    // as the session number is is counting numbers order so i can be used as indexing too.
+    printf("\n\n\n");
+    for (int j=0;j<=7;j++){  // using general case here..
+        if (lib[j].sess_no == i){
+            printf("\nAccession Number : %d", lib[j].sess_no);
+            printf("\nTitle : %s", lib[j].title);
+            printf("\nAuthor : %s", lib[j].author_name);
+            printf("\nPrice : %.2f", lib[j].price);
+            if (lib[j].flag == 0){
+                printf("\nStatus : Issued");
+            }
+            else
+                printf("\nStatus : Available");
+        }
+    }
+    
+}
+
+void giv_books(char *author){
+    int i = 0;
+    printf("Books of \"%s\" are following : \n\n", author);
+    while (lib[i].sess_no)
+    {
+        if (!(strcmp(author, lib[i].author_name))){
+            display(lib[i].sess_no);
+        
+        }
+        i++;
+    }
+}
+
+void addbook()
+{
+    int next = count();
+    lib[next].sess_no = next + 1;
+    /*fflush(stdin) or while(getch() != '\n'); /*to clear the buffer*/
+    fflush(stdin);
+    printf("Enter the title of the book : ");
+    gets(lib[next].title);
+    printf("\nEnter the name of the author of the book");
+    gets(lib[next].author_name);
+    printf("Enter the price of the book: ");
+    scanf("%f", &lib[next].price);
+    lib[next].flag = 1;
+    system("cls");
+}
+
+void which1(int a_n)
+{
+    int i=0;
+    while (lib[i].sess_no){
+        if (lib[i].sess_no == a_n){
+            printf("\n\nTitle of the book : %s\n", lib[i].title);
+            return;
+        }
+        else{
+            if (i<count()){
+                i++;
+            }
+        }
+    }
+    printf("No any book found\n");
+}
+
+void order_arr()
+{
+    int i=0;
+    while(lib[i].sess_no){
+        display(i+1);
+        i++;
+    }
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+struct datte
+{
+    int date;
+    int month;
+    int year;
+};
+int compare(struct datte, struct datte);
+int main()
+{
+    struct datte a, b;
+    int flag;
+    printf("Enter the first date (dd mm yyyy)  : ");
+    scanf("%d %d %d", &a.date, &a.month, &a.year);
+    printf("\nEnter the second date (dd mm yyyy) : ");
+    scanf("%d %d %d", &b.date, &b.month, &b.year);  // 01 and 1 are same.
+    flag = compare(a, b); // sendibng both the structures.
+
+    if (flag){
+        printf("The dates are same\n");
+    }
+    else{
+        printf("The dates are not same\n");
+    }
+    getch(); // when enter is pressed the program ends.
+    return 0;
+}
+
+int compare  (struct datte a, struct datte b)
+{
+    if (a.date == b.date && a.month == b.month && a.year == b.year){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+______________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+// question 12
+int main()
+{
+    int wind;
+    char cat;
+    printf("Enter the speed of the wind (in miles/hour) : ");
+    scanf("%d", &wind);
+    if (wind < 73){
+        printf("\nCool down man, this isn't a hurricane");
+        exit(1);
+    }
+    else if (wind > 73 && wind < 96)
+        printf("\nThe wind speed belongs to the Hurricane Category 'I'");
+    else if (wind > 95 && wind < 110)
+        printf("\nThe wind speed belongs to the Hurricane Category 'II'");
+    else if (wind > 111 && wind <130)
+        printf("\nThe wind speed belongs to the Hurricane Category 'III'");
+    else if (wind > 131 && wind < 155)
+        printf("\nThe wind speed belongs to the Hurricane Category 'IV'");
+    else if (wind > 155)
+        printf("\nThe wind speed belongs to the Hurricane Category 'V'");
+     
+    return 0; 
+    
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<windows.h>
+struct marks
+{
+    int j[3];
+    int tot;
+};
+// question 13
+int main()
+{
+    struct marks player[5];
+    int max=0;
+    for (int  i = 0;i<5;i++){
+        printf("\n\tMarks for player %d", i+1);
+        for (int j=0;j<3;j++){
+            printf("\nEnter marks entered by judge %d : ", j+1);
+            scanf("%d", &player[i].j[j]);
+        }
+        player[i].tot = player[i].j[0] + player[i].j[1] + player[i].j[2];
+        if (player[i].tot > max){
+            max = player[i].tot;
+        }
+        
+    }
+
+    for (int i = 0;i<5;i++){
+    if (max == player[i].tot){
+        printf("\nPlayer number %d is choosen as MVP!\n", i+1);
+    }
+    }
+    return 0;
+}
+______________________________________________________________________________________

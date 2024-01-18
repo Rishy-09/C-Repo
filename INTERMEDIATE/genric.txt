@@ -1,0 +1,65 @@
+ #include<stdio.h>
+
+int main(void)  
+{
+   printf("%d\n", _Generic(1.0L, float : 1, double : 2, long double : 3, default : 0));
+   printf("%d\n", _Generic(1L, float:1, double:2, long double:3, default:0));
+   printf("%d\n", _Generic(1.0L, float : 1, double:2, default:23));
+   return 0;
+}
+
+#include <stdio.h>
+# define geeks(T) _Generic((T),\
+         char *: "string", \
+         int : "Integer", \
+         long : "Long Integer", \
+         default : "Others")
+
+int main(void)  
+{
+   printf("%s\n", geeks("A"));
+   printf("%s\n", geeks(4));
+   printf("%s\n", geeks(5.35));
+   return 0;
+}
+
+At high level, we know that a compiler converts C code to Machine code so that the executable can be run without having actual source code. Similar to other technologies, compiler technology had also evolved a lot. While translating Source code to Machine code, compilers typically try to optimize the output so that lesser Machine code needs to be executed finally. One such optimization is removing unnecessary Machine code for accessing variable which is not changing from Compiler’s perspective.
+
+uint32 status = 0;
+ 
+while (status == 0)
+{
+  /*Let us assume that status isn't being changed 
+  in this while loop or may be in our whole program*/
+ 
+  /*So long as status (which could be reflecting 
+  status of some IO port) is ZERO, do something*/
+}
+An optimizing Compiler would see that status isn’t being changed by while loop. So there’s no need to access status variable again and again after each iteration of loop. So the Compiler would convert this loop to a infinite loop i.e. while (1) so that the Machine code to read status isn’t needed. Please note that compiler isn’t aware of that status is a special variable which can be changed from outside the current program at any point of time e.g. some IO operation happened on a peripheral device for which device IO port was memory mapped to this variable. So in reality, we want compiler to access status variable after every loop iteration even though it isn’t modified by our program which is being compiled by Compiler.
+One can argue that we can turn-off all the compiler optimizations for such programs so that we don’t run into this situation. This is not an option due to multiple reasons such as 
+A) Each compiler implementation is different so it’s not a portable solution 
+B) Just because of one variable, we don’t want to turn off all the other optimizations which compiler does at other portions of our program. 
+C) By turning off all the optimizations, our low level program couldn’t work as expected e.g. too much increase in size or delayed execution.
+That’s where “volatile” comes in picture. Basically, we need to instruct Compiler that status is special variable so that no such optimization are allowed on this variable. With this, we would define our variable as follows:
+ 
+
+CPP
+
+
+
+volatile uint32 status = 0;
+For simplicity of explanation purpose, we choose the above example. But in general, volatile is used with pointers such as follows:
+ 
+
+CPP
+
+
+
+volatile uint32 * statusPtr = 0xF1230000
+Here, statusPtr is pointing to a memory location (e.g. for some IO port) at which the content can change at any point of time from some peripheral device. Please note that our program might not have any control or knowledge about when that memory would change. So we would make it “volatile” so that compiler doesn’t perform optimization for the volatile variable which is pointed by statusPtr.
+In the context of our discussion about “volatile“, we quote C language standard i.e. ISO/IEC 9899 C11 – clause 6.7.3 
+“An object that has volatile-qualified type may be modified in ways unknown to the implementation or have other unknown side effects.” 
+
+
+
+ As a practical example, think of the touch sensor on mobile phones. The driver abstracting the touch sensor will read the location of touch and send it to higher level applications. The driver itself should not modify (const-ness) the read location, and make sure it reads the touch input every time fresh (volatile-ness). Such driver must read the touch sensor input in const volatile manner.

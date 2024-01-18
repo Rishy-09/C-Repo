@@ -1,0 +1,243 @@
+ /*Queue:::
+
+  It is a linear structure.
+  It is an Abstract Data Type.
+  It follows the FIFO rule: first in first out.
+  or::
+  LILO: last in last out.
+  It has a rule that ::
+  Insertion is performed from one end called Rear/Tail end.
+  Deletion is performed form one end called Head/Front end.
+  So, the technical name in the context of Queue of Inesertion is Enqueue.
+  and so for the deletion is Dequeue.
+  */
+  
+
+  /*Operations are:
+  1. Enqueue(x)
+  2. Dequeue()
+  3. front()/peek()
+  4. isFull()
+  5. isEmpty()*/
+
+  /*Applications:
+  1. Working of Printer (just like system of Queue.)                [These all are shareable resource.]
+  2. Processor : These are put in the Queue while handling commands
+   */
+_______________________________________________________________________________________
+# include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+# define N 5
+int queue[N];
+int front = -1;
+int rear = -1;
+
+void enqueue();
+void dequeue();
+void display();
+void peek();
+
+int main()
+{
+    // implementation using arrays. (via static memory allocation.)
+    enqueue(2);
+    enqueue(3);
+    enqueue(-1);
+    display();
+    getch();
+    peek();
+    getch();
+    dequeue();
+    peek();
+    getch();
+    display();
+    getch();
+}
+
+void enqueue(int x)
+{
+    if (rear == N-1){
+        printf("Overflow!\n");
+    }
+    else if(front == -1 && rear == -1){
+        front = rear = 0;
+        queue[rear] = x;
+    }
+    else{
+        rear++;
+        queue[rear] = x;
+    }
+}
+
+void dequeue()      // no value is deleted just the index has been changed to overwite the values that would be considered as garbage then.
+{
+    if (front == -1 && rear == -1){
+        printf("Underflow!\n");
+    }
+    else if (front == rear){
+        front = rear = -1;
+    }
+    else{
+        // printf("%d\n", queue[rear]);  // printing just uuhi.
+        front++;
+    }
+} 
+
+void display()
+{
+    if (front == -1 && rear == -1){  // condition for emptiness.
+        printf("Queue is empty!\n");
+    }
+    else{
+        for (int i = front; i<rear+1;i++){
+            printf("%d\n", queue[i]);
+        }
+    }
+}
+
+void peek()
+{
+   if (front == -1 && rear == -1){  // condition for emptiness.
+        printf("Queue is empty!\n");
+    }
+    else{
+        printf("The frontmost element is %d\n", queue[front]);
+    } 
+}
+
+_______________________________________________________________________________________--
+# include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *front = 0;
+struct node *rear = 0;
+
+void enqueue();
+void dequeue();
+void display();
+void peek();
+
+int main()
+
+{
+    // implementation using arrays. (via static memory allocation.)
+    enqueue(34);
+    enqueue(12);
+    enqueue(-67);
+    display();
+    getch();
+    peek();
+    getch();
+    dequeue();
+    display();
+    peek();
+    getch();
+    peek();
+}
+
+void enqueue(int x)  // performed form end.
+{
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = x;
+    newnode->next = 0;
+
+    if (front == 0 && rear == 0){
+        front = rear = newnode;
+    }
+    else{
+        rear->next = newnode;
+        rear = newnode;
+    }
+}
+
+void dequeue()     // performed from front. 
+{
+    struct node *temp;
+    temp = front;
+    if (front == 0 && rear == 0){      // checking for emptiness.
+        printf("Underflow! [ List is empty ]\n");
+    }
+    
+    else{
+        front = front->next;
+        free(temp);    // freed the memory of the node that is removed from list.
+    }
+} 
+
+void display()
+{
+    struct node *temp;
+    if (front == 0 && rear == 0){  // condition for emptiness.
+        printf("Queue is empty!\n");
+    }
+    else{
+        temp = front;
+        while(temp != 0){
+            printf("%d\n", temp->data);
+            temp = temp->next;
+        }
+    }
+}
+
+void peek()
+{
+   if (front == 0 && rear == 0){  // condition for emptiness.
+        printf("Queue is empty!\n");
+    }
+    else{
+        printf("The frontmost element is %d\n", front->data);
+    } 
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+#include <stdlib.h>
+struct Node {
+    int data;
+    struct Node* next;
+};
+struct Node* head = 0;
+void insert(int x) {
+    struct Node *newnode = (struct Node*)malloc(sizeof(struct Node));
+    newnode->data = x;
+    newnode->next = 0;
+    if (head == 0) {
+        head = newnode;
+        return;
+    } // everything is same....
+    struct Node* temp = head;
+    while (temp->next != 0 && temp->data < x) {
+        temp = temp->next;
+    }
+    if (temp->data < x) {
+        newnode->next = temp->next;
+        temp->next = newnode;
+    } else {
+        newnode->next = head;
+        head = newnode;
+    } // except this piece of code....
+}
+void print_list() {
+    struct Node* temp = head;
+    while (temp != 0) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+int main() {
+    insert(10);
+    insert(20);
+    insert(5);
+    insert(15);
+    print_list();
+    return 0;
+}
+_______________________________________________________________________________________

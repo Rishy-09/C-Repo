@@ -1,0 +1,484 @@
+ /*declaring linked list using structures 
+
+
+it helps to overcome the disadvantage of arrays of continuous memory storage of values.
+It is a linear data structure.
+Insertion and Deletion is easier in linked list.
+Traversing have to be done, you can't access any element randomly.
+Binary search is not possible.
+It is of dynamic size.
+
+struct node
+{   // combination of value and pointer is known as node in linked list 
+    int a; // value of list.
+    struct node *next;  // pointer that stores address of next node.
+}*/
+/*general types of linked list
+1. singly ll
+2. doubly ll
+3. circular ll
+4. doubly circular ll
+and you can create your own.
+                                   // THERE EXIST A HEAD POINTER THAT STORES THE ADDRESS OF THE VERY FIRST NODE FOR EVERY LL.
+most popular 1. singly ll:::
+it has only single or one link to the next link, as the name suggest so only forward traversing is possible you can't traverse in back.*/
+
+
+                 /*                       :::representation or declaration of singly ll node:::
+struct node
+{
+    int data;
+    struct node *ptr;
+};
+*/
+
+/*2. doubly ll:
+each node having a data part and a pointer to its previous node and a pointer to its next node.
+                                         :::representation or declaration of doubly ll node:::
+struct node
+{
+    int data;
+    struct node *next;
+    struct node *prev;
+
+};
+*/
+
+
+/*3. Circular ll :
+It is a variation of singly ll::
+In the last node the address of 1st node address will be stored unlike the null value stored in singly ll 
+                                 representation is same as singly ll*/
+
+
+/*doubly circular ll::
+the last node is going to point to the first node and the first node is going to point to the last node
+                declaration is same as doubly ll */
+
+
+/*                     arrays vs linked list:::
+1. cost of accessing an element:
+array is better than linked list
+2. memory requirement:
+array uses less than linked list.
+3. memory utilization:
+linked list is better in it but only for some cases where empty array space is observed.
+4.cost of insertion:
+both are somewhat of same performance.
+5.easy to use:
+array is somewhat better(having both linear and binary search method) than linked list(having only linear search possible)*/
+______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+// implementation of linked list.
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head, *newnode, *temp;
+      // intially it is storing 0 as value                 // head storing the address of first node.
+// going to use dynamic memory allocation using  malloc() function.
+// after allocating memory to the node it returns **void pointer** but we need the address so we would use (struct node *) to get the value of this pointer which the address of first node and so this would be written as:
+// newnode = (struct node *)malloc(sizeof(node));
+void insert_node_beginning();
+int main()
+{
+    int choice=1, count=0;
+    head = 0;
+    while(choice)
+    {
+    
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter data: ");
+        scanf("%d", &newnode->data);
+        newnode->next = 0; // ye nahi lagayaa tha to infinite loop chal gyi addresses ki....  when getting first node the next pointer value is set to 0.
+
+        if (head == 0){
+            head =newnode;
+            temp = newnode;
+            printf("\n\n%d\n\n", head);
+        }
+        else{
+            temp->next = newnode;
+            temp = newnode;
+        }
+        printf("Do you want to continue 1 for yes else 0\n");
+        scanf("%d", &choice);
+
+
+    }
+
+    temp = head;
+    printf("\n%d %d\n", temp, head);
+    while (temp != 0){
+        printf("%d\n", temp->data);
+        temp = temp->next;
+        count++;
+    }
+    printf("\nThe total number of nodes are: %d\n", count);
+    getch();
+    insert_node_beginning();
+
+    temp = head;
+    count = 0;
+    while (temp != 0){
+        printf("%d\n", temp->data);
+        temp = temp->next;
+        count++;
+    }
+    printf("\nThe total number of nodes are: %d\n", count);
+
+}
+
+
+
+// insertion at beginning.
+
+void insert_node_beginning()
+{
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data you want to insert at beginning.\n");
+    scanf("%d", &newnode->data);
+    newnode ->next =head;
+    head = newnode;
+    getch();
+    
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+// implementation of linked list.
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head, *newnode, *temp;
+void display();
+void insert_node_beginning();
+void insert_node_end();
+int main()
+{
+    int choice=1, count=0;
+    head = 0;
+    while(choice)
+    {
+    
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter data: ");
+        scanf("%d", &newnode->data);
+        newnode->next = 0; 
+        if (head == 0){
+            head =newnode;
+            temp = newnode;
+            // printf("\n\n%d\n\n", head);
+        }
+        else{
+            temp->next = newnode;
+            temp = newnode;
+        }
+        printf("Do you want to continue 1 for yes else 0\n");
+        scanf("%d", &choice);
+
+
+    }
+
+    display();
+
+    insert_node_beginning();
+
+    display();
+
+    insert_node_end();
+
+    display();
+
+}
+
+
+void display()
+{
+    temp = head; // head holding the starting node address of linked list.
+
+    int count = 0;
+    while (temp != 0){
+        printf("%d\n", temp->data);
+        temp = temp->next;
+        count++;
+    }
+    printf("\nThe total number of nodes are: %d\n", count);
+    getch();
+
+}
+// insertion at beginning.
+
+void insert_node_beginning()
+{
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data you want to insert at beginning.\n");
+    scanf("%d", &newnode->data);
+    newnode ->next =head;
+    head = newnode;
+    getch();
+    
+}
+
+// insertion at end.
+void insert_node_end()
+{
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data you want to insert at end.\n");
+    scanf("%d", &newnode->data);
+    newnode ->next =0;  // as null value is stored in last node pointer.
+    temp = head; // pointing to first node. , now have to traverse here to go to last node.
+    while(temp->next != 0){
+        temp = temp->next;
+    } // after reaching only one link is updated.
+    temp ->next = newnode;
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+// implementation of linked list.
+struct node
+{
+    int data;
+    struct node *next;
+};
+struct node *head, *newnode, *temp;
+void display();
+void insert_node_beginning();
+void insert_node_end();
+void insert_node_anyplace_after();
+int count();
+
+int main()
+{
+    int choice=1, count=0;
+    head = 0;
+    while(choice)
+    {
+    
+        newnode = (struct node*)malloc(sizeof(struct node));
+        printf("Enter data: ");
+        scanf("%d", &newnode->data);
+        newnode->next = 0; 
+        if (head == 0){
+            head =newnode;
+            temp = newnode;
+            // printf("\n\n%d\n\n", head);
+        }
+        else{
+            temp->next = newnode;
+            temp = newnode;
+        }
+        printf("Do you want to continue 1 for yes else 0\n");
+        scanf("%d", &choice);
+
+
+    }
+
+    display();
+
+    insert_node_beginning();
+
+    display();
+
+    insert_node_end();
+
+    display();
+
+    insert_node_anyplace_after();
+
+    display();
+
+}
+
+
+int count()
+{
+    temp = head; // head holding the starting node address of linked list.
+    int count = 0;
+    while (temp != 0){
+        temp = temp->next;
+        count++;
+    }
+    return count;
+}
+void display()
+{
+    temp = head; // head holding the starting node address of linked list.
+
+    int count = 0;
+    while (temp != 0){
+        printf("%d\n", temp->data);
+        temp = temp->next;
+        count++;
+    }
+    printf("\nThe total number of nodes are: %d\n", count);
+    getch();
+
+}
+// insertion at beginning.
+
+void insert_node_beginning()
+{
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data you want to insert at beginning.\n");
+    scanf("%d", &newnode->data);
+    newnode ->next =head;
+    head = newnode;
+    getch();
+    
+}
+
+// insertion at end.
+void insert_node_end()
+{
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter data you want to insert at end.\n");
+    scanf("%d", &newnode->data);
+    newnode ->next =0;  // as null value is stored in last node pointer.
+    temp = head; // pointing to first node. , now have to traverse here to go to last node.
+    while(temp->next != 0){
+        temp = temp->next;
+    } // after reaching only one link is updated.
+    temp ->next = newnode;
+}
+
+// insertion after a given location.
+void insert_node_anyplace_after()
+{
+    int pos=0, i = 1;
+    newnode = (struct node*)malloc(sizeof(struct node));
+    printf("Enter the position\n");
+    scanf("%d", &pos);
+    if (pos >count()){
+        printf("Invalid statement\n");
+    }
+    else{
+        temp=head;
+        while(i<pos)
+        {
+            temp = temp->next; // getting the value of 'next' named pointer into the 'temp' named pointer.
+            i++;
+        }
+        printf("Enter the data: ");
+        scanf("%d", &newnode->data);
+        // int this you need to update 2 links with the right most being update first.
+        newnode->next = temp->next; // provided the address.
+        temp->next = newnode;
+
+    }
+
+
+}
+_______________________________________________________________________________________
+# include "link_list.h"
+void delete_from_beg();
+void delete_from_end();
+void delete_from_position();
+int main()
+// deletion from linked list.
+{
+    createlist();
+    getch();
+    display();
+    delete_from_beg();
+    getch();
+    display();
+    delete_from_end();
+    getch();
+    display();
+    delete_from_position();
+    getch();
+    display();
+}
+
+// deleting from beginning.
+void delete_from_beg()
+{
+    
+    if (head == 0){
+        printf("Empty list!\n");
+
+    }
+    else{
+    temp = head;
+    head = head->next;
+    free(temp);
+    }
+
+}
+
+void delete_from_end()
+{
+    // so traversing in ll
+    struct node *prevnode;
+    temp = head;
+    while(temp -> next!=0){
+        prevnode = temp;
+        temp = temp->next;
+    }
+    if (temp == head){
+        head = 0;
+    }
+    else{
+        prevnode->next = 0;
+    }
+    free(temp);
+}
+
+void delete_from_position()
+{
+    struct node *nextnode;
+
+    int pos, i=1;
+    temp = head;
+    printf("Enter the position\n");
+    fflush(stdin);
+    scanf("%d", &pos);
+    while(i<pos-1)
+    {
+        temp=temp->next;
+        i++;
+    }
+    nextnode = temp->next;
+    temp->next = nextnode->next;
+    free(nextnode);
+
+}
+_______________________________________________________________________________________
+# include "link_list.h"
+void reverse_list();
+int main()
+// this can be done using iteration and recursion.
+// reversing the linked list.
+// here along with traversing we are changing the pointer value indicating to the address of previous node.
+{
+    createlist();
+    getch();
+    display();
+    reverse_list();
+    getch();
+    display();
+}
+
+void reverse_list()
+{
+    struct node *prevnode, *currentnode, *nextnode;
+    prevnode=0;
+    currentnode=nextnode=head;
+    while(nextnode != 0){
+        nextnode=nextnode->next;
+        currentnode->next = prevnode;
+        prevnode = currentnode;
+        currentnode = nextnode;
+    }
+    head = prevnode;
+}
+_______________________________________________________________________________________

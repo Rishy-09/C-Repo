@@ -1,0 +1,399 @@
+# include <stdio.h>
+# include <conio.h>
+# include <math.h>
+// print every ASCII vlaue.
+int main()
+{
+    int r;
+    r = 0;
+    printf("Here is the ASCII FLOW chart: \n");
+    while (r <= 255){
+        printf("%d : %c\n", r, r);
+        r++;
+    }
+    return 0;
+}
+    
+# include <stdio.h>
+# include <math.h>
+int main()
+{
+    // armstrong number.
+    int n, a, b, c, d;
+    printf("Here are the Armstrong Numbers.\n");
+    n = 0;
+    while (n <= 255){
+
+        a = n % 10;
+        b = (n/10) % 10;
+        c = (n/100) % 10;
+        //printf("%d %d %d",a,b,c)
+
+        d = pow(a, 3) + pow(b, 3) + pow(c, 3);
+
+        if (d == n){
+            printf("%d\n", n);
+        }
+
+        else{
+            continue;
+        }
+        n++;
+
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+int main()
+{
+    int m = 21, a, b;
+    
+    while (1){
+        printf("No. of match sticks left = %d\n", m);
+        printf("Pick any 1 or 2 or 3 or 4 matches: \n");
+        scanf("%d", &a);
+
+        if (a > 4 || a < 1){
+            continue;
+        }
+        m = m - a;
+        printf("NO. of matches left: %d\n", m);
+
+        b = 5 - a;
+        printf("Out of which computer picked: %d\n", b);
+
+        m = m - b;
+
+        if ( m == 1){
+            printf("No. of matches left = %d \nYou lost the game.\n", m);
+            break;
+            
+        }
+
+
+
+
+
+
+        int n, count_p = 0, count_n = 0, count_z = 0;
+    char choice;
+    do 
+    {
+        printf("Enter a number: \n");
+        scanf("%d", &n);
+
+        if ( n > 0){
+            count_p++;
+        }
+        else if (n < 0){
+            count_n++;
+        }
+        else if(n == 0) {
+            count_z++;
+        }
+        printf("\ndo you want to input the number again: \n(y/n): ");
+        scanf(" %c", &choice);
+
+    }while ( choice == 'y' || choice == 'Y');
+
+    printf("Positive numbers are: %d\nNegative numbers are: %d\nNo. of Zeroes are: %d\n", count_p, count_n, count_z);
+    return 0;
+
+
+/* int num, count = 0, sum = 0, anum = num, bnum = num;
+    printf("Enter any number to get: \n");
+    scanf("%d", &num);
+    while (num)
+    {
+        num = num /10;
+        count++;
+    }
+    //printf("%d", count);
+    while (anum)
+    {
+        int rem = anum % 10;
+        sum = sum + pow(rem, count);
+        printf("%d\n", sum);
+        anum = anum / 10;
+    }
+    if (sum == bnum)
+    {
+        printf("%d is the armstrong number with %d.\n", anum, sum);
+    }
+    else{
+        printf("It is not an armstrong number.\n");
+    }*/
+
+
+
+
+
+
+
+
+
+int main()
+{
+    int num, rem = 0, oct = 0, place = 1;
+
+    printf("Enter the integer you want: \n");
+    scanf("%d", &num);
+    printf("The octal equivalent of this is: \n");
+    
+    while(num != 0){
+        rem = num % 8;
+        num = num / 8;
+        oct = oct + (rem * place); // to add the 100th and 10th vlaue when multiplied by 10 as place.
+        place = place * 10;
+    }
+    printf("the octal value of the input is %d", oct);
+    return 0;
+    
+}
+
+
+
+
+int main()
+{
+    // prime no.
+    int num, i, prime, count;
+    for(num = 1; num <= 300; num++){
+        if(num == 1){
+            printf("IT is neither prime nor composite number\n");
+            continue;
+        }
+        count = sqrt(num);
+        prime = 1;
+        for(i = 2; i<= count; i++){
+            if(num % i == 0){
+                prime = 0;
+                break;
+            }
+        }
+        if (prime){
+            printf("%d\n", num);
+        }
+    }
+    return 0;
+}
+
+
+int i, j, k;
+    for(i = 1; i <= 3; i++){
+        for(j = 1; j<= 3; j++){
+            for(k = 1; k<= 3; k++){
+                if (i != j && j!= k && j != i){
+                    printf("(%d %d %d)\n", i, j, k);
+                }
+            }
+        }
+    }
+    return 0;
+
+
+
+
+int year = 0, invest, alternate;
+    while(alternate > invest){
+        year++;
+        alternate = 90 * year;
+        invest = (1000*year) - 4000;
+    }
+    printf("The minimum year is %d", year);
+    return 0;
+
+
+
+    float y, x, i;
+    printf("The table is: \n");
+    for(y = 1; y<= 6; y++){
+        for(x = 5.5; x <= 12.5; x += 0.5){
+            i = 2 + (y + 0.5 * x);
+            printf("%0.2f     %0.2f      %0.2f\n",i, y, x);  
+        }
+    }
+    return 0;
+
+
+
+
+
+// sum of series.
+    
+    float x, su;
+    printf("Enter the value of x: \n");
+    scanf("%f", &x);
+    for (int n = 1; n <= 7; n++){
+        if (n == 1){
+            su = (x-1)/x;
+        }
+        else{
+            su = su + pow((x-1)/x, n) * 0.5;
+        } 
+
+    }
+    printf("The sum of first 7 series is: %0.2f", su);
+
+
+
+
+
+    int i, j, k;
+    printf("The pairs are: \n");
+    for (i = 1; i <= 30; i++){
+        for(j = 1; j <= 30; j++){
+            for(k = 1; k <= 30; k++){
+
+                if(pow(i, 2) == pow (j, 2) + pow(k, 2) || pow(j, 2) == pow (i, 2) + pow(k, 2) || pow(k, 2) == pow (j, 2) + pow(i, 2) ){
+                    printf("(%d %d %d)\n", i, j, k);
+                }
+
+            }
+        }
+    }
+
+
+
+int i, pop = 100000;
+    i = 1;
+    printf("Population of current year is 100000\n");
+    while(i <= 10){
+        pop = pop - 0.1 * pop;
+        
+        printf("The population of past %d year is: %d\n", i, pop);
+        //pop = population;
+        i++;
+
+    }
+
+
+
+        int i, num, count, x, y;
+    num = 30000;
+    for(i = 1; i <= num; i++){
+        count = 0;
+        for(x = 1; x * x * x < i; x++){
+            for(y = x; y * y * y + x * x * x <= i; y++){
+                if (x * x * x + y * y * y == i){
+                    count++;
+                }
+            }
+        }
+        if ( count == 2){
+            printf("%d is the ramanujan number.\n",i);
+        }
+    }
+
+
+
+
+    int h;
+    for(h = 1; h <= 24; h++){
+        if(h < 12){
+            printf("%d A.M.\n", h);
+        }
+        if (h == 12){
+            printf("%d noon\n", h);
+        }
+        if (h > 12 && h != 24){
+            printf("%d P.M.\n", h % 12);
+        }
+        if (h == 24){
+            printf("12 Midnight\n");
+        }
+            
+    }
+
+
+
+// to get armstrong number.
+    int i, a, b, c, n;
+    i = 001;
+    while(i <= 500){
+        a = i % 10;
+        b = (i/10) % 10;
+        c = (i/100) % 10;
+        //printf("%d %d %d", a, b, c);
+
+        n = pow(a, 3) + pow(b, 3) + pow(c, 3);
+        if(n == i){
+            printf("%d is the armstrong number.\n", i);
+        }
+        i++;
+
+    }
+
+int main ()
+{
+    for (int i = 10; i; i--)
+    printf("%d\n", i); // here as i goes to 0 it will become false so it will terminate the terminal.
+  
+}
+
+
+int main ()
+{
+    int num = 651, cnum = num;
+    int digit, sum = 0;
+    while (num){
+        digit = num % 10;
+        num /= 10;
+        //printf("%d\n", digit);
+        sum += digit;
+    }
+    printf("The sum of %d is %d", cnum, sum);
+}
+
+
+int main ()
+{
+    int goals;
+    printf("Enter the number of goals scored against India: ");
+    scanf("%d", &goals);
+    
+    if(goals <= 5)
+    goto sos;
+    else{
+        printf("About time soccer player learnt C\n and said goodbye ! adieu ! to soccer.\n");
+        exit(1);
+        //terminates program execution.
+    }
+    sos:
+    printf("To err is human\n");
+    
+    return 0;
+}
+
+
+int main ()
+{
+    
+    int i, j, k;
+    for (i = 1; i <= 3; i++){
+        for (j = 1; j <= 3; j++){
+            for(k = 1; k <= 3; k++){
+                if(i == 3 && j == 3 && k == 3)
+                {
+                    goto out;
+                    exit (1);
+                }
+                else
+                {
+                    printf("(%d %d %d)\n", i, j, k);
+                    
+                }
+                
+            }
+        }
+    }
+    out: printf("Out of the loops at last.");
+
+    return 0;
+}

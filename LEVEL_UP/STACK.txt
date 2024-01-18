@@ -1,0 +1,226 @@
+  /*Introduction to stack:
+
+    it is a linear data structure with a collection of similar data type.
+    RULE:
+    insertion and deletion is possible only form one side.
+    
+    PRINCIPLE:
+    LIFO: last in first out.
+    or you can say::
+    FILO: first in last out.
+
+    In stack it is like a open container from one end.
+
+    In it insertion operation is known as push.
+    and deletion operation is known as pop. 
+    */
+   /*
+   performing operations on stack.
+   1.push(x)
+   2.pop()
+   3.peek()/top()
+   4.isEmpty()
+   5.isFull()
+
+   Now to push elements in it we need to know the size of stack
+   So, we need to allocate some memory to it and this can be done using two ways:
+   1. static memory allocation: done using arrays.
+   2. dynamic memory allocation: done using linked list.*/
+
+   /*Some operations :
+   let in empty stack you call pop() function, since it has nothing
+   it will be underflow condition
+   And so if we call push(x) operation more than the space allocated to stack
+   it is an overflowing condition.*/
+
+   /*APPLICATIONS::
+   1. To rverse a string.
+   2. For undo mechanism.
+   3. Recursion/function call.
+   4. To check the balance of the parenthesis. (for each opening there should be a closing too.)
+   5. Infix to Postfix/Prefix.      */
+______________________________________________________________________________________
+# include <stdio.h>
+#include <conio.h>
+#define N 5
+int stack[N];
+int top = -1;
+
+void push();
+void pop();
+void peek();
+void display();
+int main()
+
+// reversing the linked list.
+// here along with traversing we are changing the pointer value indicating to the address of previous node.
+{
+   // implementation using arrays.
+   int ch;
+   do
+   {
+    printf("\nEnter your choice\n1. push\n2. pop\n3. peek\n4. display\n");
+    scanf("%d", &ch);
+
+    switch(ch)
+    {
+        case 1:
+        push();
+        getch();
+        break;
+        case 2:
+        pop();
+        getch();
+        break;
+        case 3:
+        peek();
+        getch();
+        break;
+        case 4:
+        display();
+        getch();
+        break;
+        default:
+        printf("Invalid choice!\n");
+        getch();
+        break;
+    }
+    printf("Press any choice for continue else 0 to exit\n");
+   }while(ch != 0);
+   getch();
+   
+}
+
+void push()
+{
+    int x;
+    printf("Enter data\n");
+    scanf("%d", &x);
+    if (top == N-1){
+        printf("Overflow!\n");
+
+    }
+    else{
+        top++;
+        stack[top] = x;
+    }
+}
+
+void pop()
+{
+    int item;
+    if (top == -1){
+        printf("Underflow!\n");
+    }
+    else{
+        item = stack[top];
+        top--;
+        printf("The topmost element is %d\n", item);
+    }
+}
+
+void peek()
+{
+    if (top == -1){
+        printf("The stack is empty.\n");
+    }
+    else{
+        printf("The element is %d\n", stack[top]);
+    }
+}
+
+void display() // traversing to display.
+{
+    if (top == -1){
+        printf("No element!\n");
+    }
+    else{
+    for (int i = top;i>=0;i--){
+        printf("%d\n", stack[top]);
+    }
+    }
+}
+_______________________________________________________________________________________
+# include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *link;
+};
+struct node *top =0;
+
+void push(int);
+void pop();
+void peek();
+void display();
+
+int main()
+
+// reversing the linked list.
+// here along with traversing we are changing the pointer value indicating to the address of previous node.
+{
+   // implementation using linked list.
+   push(2);
+   push(3);
+   push(10);
+   display();
+   getch();
+   peek();
+   pop();
+   peek();
+   display();
+   getch();
+  
+   
+}
+
+void push(int x){
+    struct node *newnode;
+    newnode = (struct node *)malloc(sizeof(struct node));
+    newnode->data = x;
+    newnode->link = top;
+    top = newnode;
+}
+
+void display()
+{
+    struct node *temp;
+    temp = top;
+    if (top == 0){
+        printf("Underflow!\n");
+        
+    }
+    else{
+        while(temp != 0){
+            printf("%d\n", temp->data);
+            temp = temp->link;
+        }
+    }
+}
+
+void peek()
+{
+    if (top == 0){
+        printf("Nothing is there\n");
+    }
+    else{
+        printf("Top element is %d\n", top->data);
+    }
+}
+    
+
+void pop()
+{
+    struct node *temp;
+    temp =top;
+    if (top == 0){
+        printf("No element is here\n");
+    }
+    else{
+        printf("%d\n", top->data);
+        top=top->link;
+}
+}
+__

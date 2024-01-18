@@ -1,0 +1,378 @@
+#include<stdio.h>
+
+int main()
+{
+    int slogan( ) ;
+    int c = 5 ;
+    c = slogan( ) ;  // it is returning the no. of characters in printf() which is 19.
+    printf ( "\n%d", c ) ;  
+    return 0;
+}
+int slogan()
+{
+    printf ( "\nOnly He men use C!" ) ;
+}
+_________________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h> //It is not given in question, so assumed.
+int main()
+{
+	int i = 0;
+	i++;
+	if(i <= 5)
+	{
+		printf("C adds wings to your thoughts\n");
+		exit(0);
+		main();
+	}
+	return 0;
+}Output: C adds wings to your thoughts.
+______________________________________________________________________
+#include<stdio.h>
+void pass (int, int);
+int main()
+{
+   int i = 135, a= 135, k;
+   k = pass(i, a);
+   printf("%d\n", k);
+   return 0;
+    
+}
+void pass (int j, int b){
+    int c;
+    c = j + b;
+    return (c);
+    /*  k = pass(i, a);
+      ^
+code.c: In function 'pass':
+code.c:14:12: warning: 'return' with a value, in function returning void
+     return (c);*/
+}
+___________________________________________________________________________________
+#include<stdio.h>
+void jiaayjo (int, int);
+int main()
+{
+    int p = 23, f = 24;
+    jiaayjo (&p, &f);
+    printf("%d %d\n", p, f);
+    return 0;
+}
+void jiaayjo (int q, int g){
+    q = q+q;
+    g = g+g;
+}
+/*warning: passing argument 1 of 'jiaayjo' makes integer from pointer without a cast [-Wint-conversion]
+     jiaayjo (&p, &f);
+              ^
+code.c:2:6: note: expected 'int' but argument is of type 'int *'
+ void jiaayjo (int, int);
+      ^~~~~~~
+code.c:6:18: warning: passing argument 2 of 'jiaayjo' makes integer from pointer without a cast [-Wint-conversion]
+     jiaayjo (&p, &f);
+                  ^
+code.c:2:6: note: expected 'int' but argument is of type 'int *'
+ void jiaayjo (int, int);
+      ^~~~~~~
+23 24 is getting printed too.*/
+___________________________________________________________________________________
+#include<stdio.h>
+void check (int);
+int main()
+{
+    int k = 35, z;
+    z = check(k);
+    printf("%d\n", z);
+    return 0;
+
+}
+void check (int m){
+    int m;
+    if (m > 40){
+        return (1);
+    }
+    else{
+        return (0);
+    }
+}
+/* error: void value not ignored as it ought to be
+     z = check(k);
+       ^
+code.c: In function 'check':
+code.c:12:9: error: 'm' redeclared as different kind of symbol
+     int m;
+         ^
+code.c:11:17: note: previous definition of 'm' was here
+ void check (int m){
+                 ^
+code.c:14:16: warning: 'return' with a value, in function returning void
+         return (1);
+                ^
+code.c:11:6: note: declared here
+ void check (int m){
+      ^~~~~
+code.c:17:16: warning: 'return' with a value, in function returning void
+         return (0);
+                ^
+code.c:11:6: note: declared here
+ void check (int m){
+      ^~~~~*/
+___________________________________________________________________________________
+#include<stdio.h>
+void function (int *);
+int main()
+{
+    int i = 35, *z;
+    z = function (&i);
+    printf("%d\n", z);
+    return 0;
+
+}
+void function (int *m){
+    return (*m + 2);
+}
+/* error: void value not ignored as it ought to be
+     z = function (&i);
+       ^
+code.c: In function 'function':
+code.c:12:16: warning: 'return' with a value, in function returning void
+     return (*m + 2);
+            ~~~~^~~~
+code.c:11:6: note: declared here
+ void function (int *m){
+      ^~~~~~~~*/
+__________________________________________________________________________________
+#include<stdio.h>
+int function (int *);
+int main()
+{
+    int i = 35, *z;
+    z = function (&i);
+    printf("%d\n", z);
+    return 0;
+
+}
+int function (int *m){
+    return (*m + 2);
+}
+/*  In function 'main':
+code.c:6:7: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     z = function (&i);*/
+___________________________________________________________________________________
+#include<stdio.h>
+#include<math.h>
+// question 1.
+void calcu (int, int, int, int, int, int *,int *, float *);
+int main()
+{
+    int a, b, c, d, e, sm, av;
+    float std;
+    printf("Enter the five integers.\n");
+    scanf("%d %d %d %d %d", &a, &b, &c, &d, &e);
+    calcu (a, b, c, d, e, &sm, &av, &std);
+    printf("Sum is %d\n\nAverage is %d\n\nStandard Deviation is %f\n", sm, av, std);
+}
+void calcu (int a, int b, int c, int d, int e, int *sm, int *av, float *std){
+    *sm = a + b + c + d + e;
+    *av = *sm/5;
+    /*  standard deviation = sqrt of variance.
+    and variance  = [] (x - mean)^2/N ]
+    where N is total number of elements.
+    x is individual element.           */
+    *std = pow(a - *av, 2) + pow(b - *av, 2) + pow(c - *av, 2) + pow(d - *av, 2) + pow(e - *av, 2);
+    *std = sqrt (*std/5);
+}
+_________________________________________________________________________________
+#include<stdio.h>
+#include<math.h>
+// question 2.
+void cal (int, int, int, int *, float *);
+int main()
+{
+    int a, b, c, av;
+    float per;
+    printf("Enter the marks of your three subjects.\n");
+    scanf("%d %d %d", &a, &b, &c);
+    cal (a, b, c, &av, &per);
+    printf("The average is %d\n\nThe percentage is %.3f\n", av, per);
+}
+void cal (int a, int b, int c, int *av, float *per){
+    *av = a + b + c;
+    *per = *av/3;
+
+}
+__________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+// question 3.
+float sine(float);
+int fact (int);
+int main()
+{
+    float x, sum;
+    printf("Enter the angle in radian \n");
+    scanf("%lf", &x);
+    sum = sine(x);
+    printf("The sum of series of sin(%lf) upto 10 terms is %lf ",x, sum);
+}
+float sine(float x){
+    float sum = 0;
+    int i , j, sign = 1;
+    for (i = 0, j = 1; i <5; i++, j = j+2,sign *= -1){
+        sum = sum + sign*pow(x, j)/fact(j);
+    }
+    return (sum);
+    // 1.#INF00 means positive infinity, but what about -1.#IND00 and -1.#IND? I also saw sometimes this value: 1.$NaN which is Not a Number,
+}
+int fact(int num){
+    int i = 1;
+    while (num){
+        i *= num;
+        num--;
+
+    }
+    return (i);
+
+}
+____________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<math.h>
+// question 4.
+void chan(int *, int *, int *);
+int main()
+
+{
+    int a, b, c;
+    printf("Enter the three numbers of your choice.\n");
+    scanf("%d %d %d", &a, &b, &c);
+    printf("The numbers you have entered are: a = %d\nb = %d\nc = %d.", a, b, c);
+    chan(&a, &b, &c);
+    printf("The changed values are: %d %d %d\n", a, b, c);
+}
+void chan (int *a, int *b, int *c){
+    int x;
+    x = *c;
+    *c = *b;
+    *b = *a;
+    *a = x;
+}
+____________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+// question 5.
+float ar(float, float, float);
+int main()
+{
+    float a,b,c,area;
+    printf("Enter the three sides of rectangle\n");
+    scanf("%f %f %f", &a, &b, &c);
+    
+    if (a < 0 || b < 0 || c < 0){
+        printf("Error!!!\nEnter the sides again.");
+        exit(1);
+    }
+    area = ar(a,b,c);
+    printf("The area of triangle is %f.", area);
+
+}
+float ar(float a, float b, float c){
+    float s, area;
+    s = (a+b+c)/2;
+    area = s * (s - a) * (s - b) * (s - c);
+    area = sqrt(area);
+    return (area);
+}
+____________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+// question 7.
+int gcd(int , int);
+int main()
+{
+    int a, b, result, max, min;
+    // function for gcd. by Euclid's algorithm.
+    printf("Enter the two numbers to calculate gcd.\n");
+    scanf("%d %d", &a, &b);
+    
+    if (a >= b){
+        max = a;
+        min = b;
+    }
+    else{
+        min = a;
+        max = b;
+    }
+
+    result = gcd(max, min);
+    printf("The gcd be %d", result);
+
+}
+int gcd(int max, int min){
+    static int rem, temp;          // taki value change na ho jab dubaraa call kare.
+    if (min == 0){
+        return(max);
+
+    }  
+    rem = max/min;
+    temp = max;
+    max = min;
+    min = temp - rem*min;  
+    gcd (max, min);          
+} 
+___________________________________________________________________________________
+
+#include<stdio.h>
+#include<math.h>
+float dis (int, int, int, int);
+int main()
+{
+    // question 6.
+    int x1, x2, x3, y1, y2, y3, x, y;
+    float a1, a2,a3,a4;
+    printf("Enter the co-ordinates of point of traingle.\n");
+    scanf("%d %d", &x1, &y1);
+    printf("Enter the co-ordinates of second point.\n");
+    scanf("%d %d", &x2, &y2);
+    printf("Enter the points of third one.\n");
+    scanf("%d %d", &x3, &y3);
+    printf("Enter the point to check whether it lies inside or not.\n");
+    scanf("%d %d", &x, &y);
+    a1 = ar(x1, y1, x2, y2, x, y);
+    a2 = ar(x2, y2, x3, y3, x, y);
+    a3 = ar(x3, y3, x1, y1, x, y);    // yaha se area vale function pe gayaa. 
+    a4 = ar(x1, y1, x2, y2, x3, y3);
+
+    if (!(a1 + a2 + a3 > a4 || a1 + a2 + a3 < a4)){  // yaha us point se 3 tukde kardiye asli traingle ke aur 3 ke 
+    //calculate kar ke check kar kiya ki if less than or greater than then it is wrong kyoki it must be equal to it.
+        printf("The point (%d, %d) lies inside the triangle.\n", x, y);
+    }
+    else{
+        printf("The point doesn't lies inside the triangle.\n");
+    }
+
+
+
+
+}
+float distance (int x1, int y1, int x2, int y2){
+    float dis;
+    dis = sqrt (pow((x2 - x1), 2) + pow((y2 - y1), 2));  // yaha calcualtion hui.
+    return (dis);          // ye return karraa hai distance ko area function me.
+}
+float ar (int x1, int y1, int x2, int y2, int x3, int y3){
+    float a,b,c,area,s;
+    a = distance(x1, y1, x2, y2);
+    b = distance(x2, y2, x3, y3);
+    c = distance(x3, y3, x1, y1);           // yaha se distance me gayaa.
+    s = (a+b+c)/2;
+    area = s *(s - a)*(s - b) *(s - c);
+    area = sqrt(area);
+    return (area);    // ye do function banaaye hai. yaha ye bhi main me return karegaa
+    // taaki check kar sake ki x, y point lie kartaa hai ke nahi.
+
+}
+___________________________________________________________________________________

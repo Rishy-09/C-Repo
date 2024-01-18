@@ -1,0 +1,1228 @@
+#include<stdio.h>
+
+
+void openfile(char*, FILE**);
+
+int main()
+{
+	FILE *fp;
+	openfile("Myfile.txt", fp);
+	if (fp == NULL)
+		printf("Unable to open file…");
+	return 0;
+}
+void openfile(char *fn, FILE **f)
+{
+	*f = fopen(fn, "r");
+}
+Error: Argument of openfile() is of FILE** type, while in main FILE* is passed in the function.
+
+#include<stdio.h>
+#include<stdlib.h>
+
+int main()
+{
+	FILE *fp;
+	char c;
+	fp = fopen("TRY.C", "r");
+	if (fp == null)
+	{
+		puts("Cannot open file");
+		exit();
+	}
+	while ((c = getc(fp)) != EOF)
+		putch(c);
+	fclose(fp);
+	return 0;
+}
+Error:
+1. null is not defined, NULL should be used at that place.
+2. exit() function should have an int type argument, which is not present there.
+3. putch() is defined in conio.h file which is also not present.
+
+#include<stdio.h>
+
+int main()
+{
+	char fname[] = "c:\\students.dat";
+	FILE *fp;
+	fp = fopen(fname, "tr");
+	if (fp == NULL)
+		printf("\nUnable to open file...");
+	return 0;
+}
+Error: "tr" is not any valid file opening mode, it should be "r", "rt" or "rb". And a .dat should be open in binary mode, that is in "rb" mode.
+
+#include<stdio.h>
+int main()
+{
+	FILE *fp;
+	char str[80];
+	fp = fopen("TRY.C", "r");
+	while (fgets(str, 80, fp) != EOF)
+		fputs(str);
+	fclose(fp);
+	return 0;
+}
+Error:
+
+1. fgets() do not return EOF, so while loop statement is invalid.
+
+2. We are storing 81 characters in str variable, 80 characters form the file and 1 character is added automatically the NULL  character that caused the overflow of the array.
+
+3. fputs() accepts three arguments, char* and FILE*, but only one argument is passed.
+
+#include<stdio.h>
+int main()
+{
+	unsigned char;
+	FILE *fp;
+	fp = fopen("trial", "r");
+	while ((ch = getc(fp)) != EOF)
+		printf("%c", ch);
+	fclose(fp);
+	return 0;
+}
+Error: ch is not defined in this scope.
+
+#include<stdio.h>
+int main()
+{
+	FILE *fp;
+	char name[20];
+	int i;
+	fp = fopen("students.dat", "wb");
+	for (i = 0; i <= 10; i++)
+	{
+		puts("\nEnter name: ");
+		gets(name);
+		fwrite(name, size of(name), 1, fp);
+	}
+	close(fp);
+	return 0;
+}
+Error:
+1. sizeof operator does not have space between it.
+2. close() function is undefined. Use fclose();
+
+#include<stdio.h>
+int main()
+{
+	FILE *fp;
+	char name[20] = "Ajay";
+	int i;
+	fp = fopen("students.dat", "r");
+	for (i = 0; i <= 10; i++)
+		fwrite(name, sizeof(name), 1, fp);
+	close(fp);
+	return 0;
+}
+
+Error: 
+1. Cannot use fwrite() function on the file opened in  "r" (read-only) mode.
+2. close() function is undefined. Use fclose();
+
+#include<stdio.h>
+int main()
+{
+	int fp;
+	fp = open("pr22.c", "r");
+	if (fp == -1)
+		puts("cannot open file");
+	else
+		close(fp);
+	return 0;
+}
+
+Error: 
+1. open() and close() functions are UNIX platform-specific. Use _open() or _close() and include io.h file if you are using Visual Studio.
+
+#include<stdio.h>
+
+int main()
+{
+	int fp;
+	fp = fopen("students.c", READ | BINARY);
+	if (fp == -1)
+		puts("cannot open file");
+	else
+		close(fp);
+	return 0;
+}
+Error:
+1. close() and open() functions are not defined, with the same reason stated above.
+2. fopen() returns FILE* but it is assigned to an int type variable.
+3. READ | BINARY are undefined
+
+What is the purpose of the library function fflush( )?
+
+When we get any character from the keyboard, so this procedure takes place.
+
+- We enter a character from the keyboard.
+
+- Characters entered are go in Standard Input Stream
+
+- function like scanf() or getch() fetch that character from the Standard Input Stream, and not from the keyboard.
+
+So, hitting Enter key after the character key, store Enter also in Standard Input Stream, so the next function scanf() or getch(), do not wait to get a character from the keyboard, but take the Enter key, hit previously from the Standard Input Stream. So, to solve this problem we have to clear our buffer completely before functions scanf("%c") or getch(). This function is performed by fflush(stdin).
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+int main()
+{
+    FILE *fp;
+    int i = 1;
+    char ch;
+    fp = fopen("File (a).txt", "r+");
+    if (fp == NULL){
+        puts("\nFile can't be open");
+        exit(1);
+    }
+    printf("%d. ", i);
+    i++;
+    do
+    {
+        ch = fgetc(fp);
+        if (ch == '.')
+        {
+            printf("%c", ch);
+            if(fgetc(fp) == EOF){
+                continue;
+            }
+
+            printf("\n%d. ", i);
+
+            i++;
+            continue;
+        }
+
+        printf("%c", ch);
+
+    }while (ch != EOF);
+    fclose (fp);
+    getch();
+    
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+int main()
+{
+    FILE *f1, *f2;
+    char ch, buffer[10];
+
+    //destination file.
+    f1 = fopen("File (b)1.txt", "a+");
+    if (f1 == NULL){
+        printf("File do not exist or can't be open");
+        exit(1);
+    }
+
+    // source file.
+    f2 = fopen("File (b)2.txt", "r+");
+    if (f2 == NULL){
+        printf("File do not exist or can't be open");
+        exit(2);
+    }
+    fseek(f1, 0, SEEK_END);
+    // goes to last character.
+    ch = fgetc(f2);
+
+    while(ch != EOF)
+    {
+        fputc(ch, f1);
+        ch = fgetc(f2);
+    }
+
+    rewind(f1);
+    while(fgets(buffer, 9, f1) != NULL) /*displaying the content.*/
+    {
+        printf("%s", buffer);
+    }
+
+    fclose(f1);
+    fclose(f2);
+    getch();
+    return 0;
+    
+}
+______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+// question 4.
+int main()
+{
+    char str[50];
+    FILE *f1, *f2;
+    f1 = fopen("File (d)1.txt", "r");
+    f2 = fopen("File (d)2.txt", "w");
+    while(fgets(str, 49, f1) != NULL)
+    {
+        strupr(str);
+        fputs(str, f2);
+    }
+    getch();
+    return 0;
+}
+______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include <stdlib.h>
+// question 4.
+int main()
+{
+    char str[50];
+    FILE *f1, *f2, *fp;
+    char ch1 = 'a', ch2= 'a';
+    f1 = fopen("File (e)1.txt", "r");
+    f2 = fopen("File (e)2.txt", "r");
+    fp = fopen("File (e)3.txt", "w");
+
+    if (f1 == NULL){
+        printf("Can't open the file1\n");
+        exit(1);
+    }
+    if (f2 == NULL){
+        printf("Can't open the file2\n");
+        exit(2);
+    }
+
+    puts("\nWork on progress\n.\n.\n.\n");
+
+    while(1)
+    {           // loop for printing the next lines till both files end.
+        if (ch1 != EOF){
+            ch1 = fgetc(f1);
+            /*A line is ends when a . is encounter*/
+
+            while (ch1 != '.')
+            {
+                if (ch1 == EOF){  // double checking.
+                    break;
+                }         // code for printing one line of file (e)1.txt.
+                fputc(ch1, fp);
+                ch1 = fgetc(f1);
+            }
+
+            if (ch1 != EOF){
+                fputc('.' , fp);
+            }
+        }
+
+        if (ch2 != EOF)
+        {
+            ch2 = fgetc(f2);
+            /*A line is ends when a . is encounter*/
+            while (ch2 != '.')
+            {
+                if (ch2 == EOF){
+                    break;
+                }            // code for printing one line of file (e)2.txt.
+                fputc(ch2, fp);
+                ch2 = fgetc(f2);
+            }
+            if (ch2 != EOF){
+                fputc('.', fp);
+            }
+        }
+        /*Getting out of the loop after end of both files*/
+        if (ch1 == EOF && ch2 == EOF){
+            break;
+        }
+    }
+    printf("\nTask completed.\nExiting . . .\n");
+    getch();
+    return 0;
+}
+______________________________________________________________________________________
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include <windows.h>
+
+void gotoxy(short , short);
+void box (short, short, short, short);
+void getkey();
+// question 6.
+int main()
+{
+    box(0, 1, 79, 23);
+    FILE *fp;
+    char str[85];
+    int i , j=1;
+    fp = fopen("File (f).txt", "r");
+    if (fp == NULL)
+    {
+        printf("File do not exist, or can't open the file.");
+        exit(1);
+    }
+    i=2;
+    while(fgets(str, 76, fp) != NULL)
+    {
+        gotoxy(1, 0);
+        /*printing page number*/
+        printf("%d", j);
+        gotoxy(32, 0);
+        /*printing the file name*/
+        printf("File (f).txt");
+        gotoxy(3, i);
+        /*Printing the file's content.*/
+        printf("%s", str);
+        i++;
+        if(i == 20)
+        {
+            gotoxy(32, i+4);
+            printf("Press any key ...");
+            getkey();
+            system("cls");
+            box(0, 1, 79, 23);
+            /*Re-initializing variable for new page*/
+            i = 2;
+            /*Page number increamentation*/
+            j++;
+
+        }
+    }
+    getkey();
+    system("cls");
+    gotoxy(3, 10);
+    printf("File ends\n");
+    getch();
+    return 0;
+}
+
+void gotoxy(short col, short row)
+{
+    HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD position = { col,row };
+    SetConsoleCursorPosition(h, position);
+}
+
+void box(short x1, short y1, short x2, short y2)
+{
+    int i;
+    gotoxy(0, 1);
+    printf("%c", 218); /*Making upper-left corner.*/
+    gotoxy(79, 1);
+    printf("%c", 191); /*Making upper-right coner.*/
+    gotoxy(0, 23);
+    printf("%c", 192); /*Making lower-left corner.*/
+    gotoxy (79, 23);
+    printf("%c", 217); /*Making lower-right corner.*/
+
+    for (i=x1+1;i<x2;i++)
+    {
+        gotoxy(i, y1);
+        printf("%c", 196); /*This will make upper side of the box*/
+        gotoxy(i, y2);
+        printf("%c", 196);/*This will make lower side of the box.*/
+
+    }
+    for (i=y1+1;i<y2;i++){
+        gotoxy(x1, i);
+        printf("%c", 179); /*This will make left side of the box.*/
+        gotoxy(x2, i);
+        printf("%c", 179); /*This will make right side of the box.*/
+    }
+}
+
+void getkey ()
+{
+    char ch;
+    ch = getch();
+    if (ch == 0){
+
+        ch = getch();
+    }
+}
+______________________________________________________________________________________
+#include <stdio.h>
+#include <conio.h>
+#include <ctype.h>
+
+void encode (FILE*, FILE*);
+void decode (FILE*, FILE*);
+void display(FILE*);
+
+int main()
+{
+    FILE *sf, *df;
+    /*source file.*/
+    sf = fopen("File (g)1.txt", "r");
+    /*Destination file.*/
+    df = fopen("File g(2).txt", "w");
+
+
+    /*Displaying decoded file before encoding*/
+    display(sf);
+    /*encoding file*/
+    encode (sf, df);
+    /*Display encoded file after encoding*/
+    display(df);
+
+    /*decoding file*/
+    decode (df, sf);
+    /*displaying file after decoding*/
+    display(sf);
+
+    getch();
+    return 0;
+    
+}
+
+void encode(FILE *sf, FILE *df)
+{
+    char ch;
+    while(1)
+    {
+        ch = fgetc(sf);
+        if (ch == EOF)
+        {
+            break;
+        }
+        if (isalpha(ch) || ch == ' ' || ch == '\n')
+        {
+            switch(ch)
+            {
+                case '\n':
+                fputc('@', df);
+                break;
+                case 'a':
+                fputc('0', df);
+                case 'A':
+                fputc('!', df);
+                break;
+                case 'b':
+                fputc('0', df);
+            case 'B':
+                fputc('#', df);
+                break;
+            case 'c':
+                fputc('0', df);
+            case 'C':
+                fputc('$', df);
+                break;
+            case 'd':
+                fputc('0', df);
+            case 'D':
+                fputc('%', df);
+                break;
+            case 'e':
+                fputc('0', df);
+            case 'E':
+                fputc('&', df);
+                break;
+            case 'f':
+                fputc('0', df);
+            case 'F':
+                fputc('*', df);
+                break;
+            case 'g':
+                fputc('0', df);
+            case 'G':
+                fputc('(', df);
+                break;
+            case 'h':
+                fputc('0', df);
+            case 'H':
+                fputc(')', df);
+                break;
+            case 'i':
+                fputc('0', df);
+            case 'I':
+                putc('+', df);
+                break;
+            case 'j':
+                fputc('0', df);
+            case 'J':
+                fputc('/', df);
+                break;
+            case 'k':
+                fputc('0', df);
+            case 'K':
+                fputc('{', df);
+                break;
+            case 'l':
+                fputc('0', df);
+            case 'L':
+                fputc('}', df);
+                break;
+            case 'm':
+                fputc('0', df);
+            case'M':
+                fputc(';', df);
+                break;
+            case 'n':
+                fputc('0', df);
+            case 'N':
+                fputc(':', df);
+                break;
+            case 'o':
+                fputc('0', df);
+            case 'O':
+                fputc('[', df);
+                break;
+            case 'p':
+                fputc('0', df);
+            case 'P':
+                fputc(']', df);
+                break;
+            case 'q':
+                fputc('0', df);
+            case 'Q':
+                fputc('"', df);
+                break;
+            case 'r':
+                fputc('0', df);
+            case 'R':
+                fputc('`', df);
+                break;
+            case 's':
+                fputc('0', df);
+            case 'S':
+                fputc('\\', df);
+                break;
+            case 't':
+                fputc('0', df);
+            case 'T':
+                fputc('|', df);
+                break;
+            case 'u':
+                fputc('0', df);
+            case 'U':
+                fputc('=', df);
+                break;
+            case 'v':
+                fputc('0', df);
+            case 'V':
+                fputc('-', df);
+                break;
+            case 'w':
+                fputc('0', df);
+            case 'W':
+                fputc('_', df);
+            case 'x':
+                fputc('0', df);
+            case 'X':
+                fputc('<', df);
+                break;
+            case 'y':
+                fputc('0', df);
+            case 'Y':
+                fputc('^', df);
+                break;
+            case 'z':
+                fputc('0', df);
+            case 'Z':
+                fputc('?', df);
+                break;
+            case ' ':
+                fputc('1', df);
+                break;
+
+            }
+        }
+        else{
+            fputc(ch, df);
+        }
+    }
+}
+
+void decode (FILE *ef, FILE *df)
+{
+    char ch;
+    while(1)
+    {
+        ch = fgetc(df);
+        if (ch==EOF){
+            break;
+        }
+        switch(ch)
+        {
+            case '@':
+            fputc('\n', ef);
+            break;
+            case '0':
+            ch = fgetc(df);
+            switch (ch)
+            {
+            case '!':
+                fputc('a', ef);
+                break;
+            case '#':
+                fputc('b', ef);
+                break;
+            case '$':
+                fputc('c', ef);
+                break;
+            case '%':
+                fputc('d', ef);
+                break;
+            case '&':
+                fputc('e', ef);
+                break;
+            case '*':
+                fputc('f', ef);
+                break;
+            case '(':
+                fputc('g', ef);
+                break;
+            case ')':
+                fputc('h', ef);
+                break;
+            case '+':
+                fputc('i', ef);
+                break;
+            case '/':
+                fputc('j', ef);
+                break;
+            case '{':
+                fputc('k', ef);
+                break;
+            case'}':
+                fputc('l', ef);
+                break;
+            case ';':
+                fputc('m', ef);
+                break;
+            case ':':
+                fputc('n', ef);
+                break;
+            case '[':
+                fputc('o', ef);
+                break;
+            case ']':
+                fputc('p', ef);
+                break;
+            case '"':
+                fputc('q', ef);
+                break;
+            case '`':
+                fputc('r', ef);
+                break;
+            case '\\':
+                fputc('s', ef);
+                break;
+            case '|':
+                fputc('t', ef);
+                break;
+            case '=':
+                fputc('u', ef);
+                break;
+            case '-':
+                fputc('v', ef);
+                break;
+            case '_':
+                fputc('w', ef);
+                break;
+            case '<':
+                fputc('x', ef);
+                break;
+            case '^':
+                fputc('y', ef);
+                break;
+            case '?':
+                fputc('z', ef);
+                break;
+            }
+            break;
+        case '!':
+            fputc('A', ef);
+            break;
+        case '#':
+            fputc('B', ef);
+            break;
+        case '$':
+            fputc('C', ef);
+            break;
+        case '%':
+            fputc('D', ef);
+            break;
+        case '&':
+            fputc('E', ef);
+            break;
+        case '*':
+            fputc('F', ef);
+            break;
+        case '(':
+            fputc('G', ef);
+            break;
+        case ')':
+            fputc('H', ef);
+            break;
+        case '+':
+            putc('I', ef);
+            break;
+        case '/':
+            fputc('J', ef);
+            break;
+        case '{':
+            fputc('K', ef);
+            break;
+        case '}':
+            fputc('L', ef);
+            break;
+        case';':
+            fputc('M', ef);
+            break;
+        case ':':
+            fputc('N', ef);
+            break;
+        case '[':
+            fputc('O', ef);
+            break;
+        case ']':
+            fputc('P', ef);
+            break;
+        case '"':
+            fputc('Q', ef);
+            break;
+        case '`':
+            fputc('R', ef);
+            break;
+        case '\\':
+            fputc('S', ef);
+            break;
+        case '|':
+            fputc('T', ef);
+            break;
+        case '=':
+            fputc('U', ef);
+            break;
+        case '-':
+            fputc('V', ef);
+            break;
+        case '_':
+            fputc('W', ef);
+        case '<':
+            fputc('X', ef);
+            break;
+        case '^':
+            fputc('Y', ef);
+            break;
+        case '?':
+            fputc('Z', ef);
+            break;
+        case '1':
+            fputc(' ', ef);
+            break;
+        default:
+            fputc(ch, ef);
+        }
+    }
+}
+
+void display(FILE *fp)
+{
+    char str[50];
+    while(fgets(str, 49, fp) != NULL){
+        printf("%s", str);
+    }
+    puts("\n\n");
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+#include <conio.h>
+#include<windows.h>
+#include <string.h>
+
+void display(char *);
+struct customer
+{
+    int accno;
+    char name[30];
+    float balance;
+};
+
+struct trans
+{
+    int accno;
+    char trans_type;
+    float amount;
+};
+
+int main()
+{
+    add_info(1, "Siraj", 1000);
+    puts("\n\nBefore Transaction");
+    display("cutomer.dat");
+    transaction(1, 'd', 1000);
+    puts("After Transaction");
+    display("customer.dat");
+    getch();
+    return 0;
+}
+
+void display(char *file)
+{
+    FILE *fp;
+    struct  customer holder;
+    fp = fopen(file, "rb");
+    while(fread(&holder, sizeof(holder), 1, fp) == 1)
+    {
+        printf("\n%d", holder.accno);
+        printf(":\t%s", holder.name);
+        printf("\n%f\n", holder.balance);
+    }
+    fclose(fp);
+}
+
+void add_info (int accno, char *name, float bal)
+{
+    FILE *fp;
+    struct customer holder;
+    fp = fopen("customer.dat", "rb+");
+    if (fp == NULL){
+        fp = fopen("customer.dat", "wb");
+        fseek(fp, 0, SEEK_END);
+        holder.accno = accno;
+        strcpy(holder.name, name);
+        holder.balance=bal;
+        fwrite(&holder, sizeof(holder), 1, fp);
+        fclose(fp);
+    }
+}
+
+void transaction (int accno, char ttype, float amount)
+{
+    FILE *fp, *temp;
+    struct customer holder;
+    fp = fopen("customer.dat", "rb");
+    temp = fopen("temp.dat", "wb");
+    while(fread(&holder, sizeof(holder), 1, fp) == 1){
+        if (holder.accno == accno)
+        {
+            switch(ttype)
+            {
+                case 'd':
+                case 'D':
+                holder.balance += amount;
+                break;
+                case 'w':
+                case 'W':
+                if ((holder.balance - amount) < 100)
+                {
+                    system("cls");
+                    printf("\nYour account balance is low.\n");
+                    printf("Transaction failed!");
+                    getch();
+                }
+                else{
+                    holder.balance -= amount;
+                    
+                }
+                break;
+
+                default:
+                system ("cls");
+                puts("Wrong Transaction type!!");
+                puts("\nTry again!!");
+                fclose(fp);
+                fclode(temp);
+                remove("temp.dat");
+                return;
+            }
+        }
+        fwrite(&holder, sizeof(holder), 1, temp);   // here whole file written to temp named file.
+    }
+    fclose (fp);
+    fclose(temp);
+    remove("customer.dat");
+    rename("temp.dat", "customer.dat");
+}
+______________________________________________________________________________________
+#include <stdio.h>
+#include <conio.h>
+#include<windows.h>
+#include <string.h>
+
+struct date
+{
+    int d, m, y;
+};
+
+struct employee
+{
+    char empcode[6];
+    char empname[20];
+    struct date join_date;
+    float salary;
+};
+
+/*to display list in a way they are stored in disk.*/
+void display(char *);
+/*to make file before sorting them.*/
+void add_info(char *, char *, struct date, float);
+/*sorting by date of joining.*/
+void sortbydoj(char *);
+/*writing content to target file.*/
+void swap(struct employee*, struct employee*);
+int main()
+{
+    struct date d = {13, 1, 1995};
+    add_info("EMP01", "Siraj", d, 50000.00);  // passing structure date named d into function.
+    d.d = 17; d.m = 5; d.y = 1994;
+    add_info("EMP04", "Karan", d, 45000.00);
+    d.d = 7; d.m = 11; d.y = 1995;
+    add_info("EMP03","Deepak", d,45000.00);
+    d.d = 2; d.m = 11; d.y = 1995;
+    add_info("EMP02","Azad",d,45000.00);
+    d.d = 15; d.m = 1; d.y = 2001;
+    add_info("EMP04", "Vijay", d, 21000.00);
+    d.d = 24; d.m = 5; d.y = 1993;
+    add_info("EMP06", "Shanu", d, 55000.00);
+    sortbydoj("Record.dat");
+    
+    getch();
+    display("Record.dat");
+    getch();
+    return 0;
+}
+
+void display(char *file)
+{
+    FILE *fp;
+    struct employee e;
+    fp = fopen(file, "rb"); // to display read in binary is used.
+    while (fread(&e, sizeof(e), 1, fp) == 1){
+        printf("\n%s", e.empcode);
+        printf("\t%s", e.empname);
+        printf("\t%d", e.join_date.d);
+        printf("\t%d", e.join_date.m);
+        printf("\t%d", e.join_date.y);
+        printf("\t%f\n", e.salary);
+    }
+    fclose(fp);
+}
+
+void add_info(char *code, char *name, struct date doj, float salary)
+{
+    FILE *fp;
+    fp =fopen("Record.dat", "rb+");
+    if (fp == NULL){
+        fp = fopen("Record.dat", "wb");
+    }
+    struct employee e;
+    strcpy(e.empcode, code);
+    strcpy(e.empname, name);
+    e.join_date = doj;
+    e.salary = salary;
+    fseek(fp, 0, SEEK_END);
+    fwrite(&e, sizeof(e), 1, fp);
+    fclose(fp);
+}
+
+void swap (struct employee *a, struct employee *b)
+{
+    struct employee temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void sortbydoj(char *file)
+{
+    int i = 0, j, count;
+    FILE *fp1;
+    struct employee e[100], temp;
+    fp1 = fopen(file, "rb");
+    if (fp1 == NULL)
+    {
+        puts("\nUnable to open file or the file do not exist.");
+        exit(1);
+    }
+
+    while (1)
+    {
+        /*saving the data in the array of structures.*/
+        if (fread(&e[i], sizeof(e[i]), 1, fp1) != 1){
+            break;
+        }
+        i++;       // it is like an else.
+    }
+    /*total number of records*/
+    count = i;
+    for (int i = 0;i<count;i++)
+    {
+        for (j = i+1;j<count;j++)
+        {
+            if (e[i].join_date.y >= e[j].join_date.y){
+                if (e[i].join_date.y > e[j].join_date.y){
+                    swap(&e[i], &e[j]);
+                }
+            }
+            else{
+                    if (e[i].join_date.m >= e[j].join_date.m){
+                        if (e[i].join_date.m > e[j].join_date.m){
+                            swap(&e[i], &e[j]);
+                        }
+                        else if (e[i].join_date.d >= e[j].join_date.d){
+                            swap(&e[i], &e[j]);
+                        }
+
+                    }
+            }
+        }
+    }
+
+    /*printing the array after sorting by date of joining.*/
+    printf("Employee Id\tName\tdd mm yyyy\tSalary\n");
+    for (int i = 0;i<count;i++){
+        printf("\n%-12s", e[i].empcode);
+        printf("\t%s", e[i].empname);
+        printf("\t% 2d", e[i].join_date.d);
+        printf("% 2d", e[i].join_date.m);
+        printf("% 2d", e[i].join_date.y);
+        printf("\t%2.2f\n", e[i].salary);
+    }
+}
+_______________________________________________________________________________________
+#include <stdio.h>
+#include <conio.h>
+#include<windows.h>
+#include <stdlib.h>
+
+struct blood
+{
+    char name[20];
+    char address[40];
+    int age;
+    int blood_type;
+};
+
+void add_info(struct blood);
+void display(char *);
+void lessthen25(char *);
+
+int main()
+{
+    lessthen25("Blood Donors Record.txt");
+    getch();
+    return 0;
+}
+
+void add_info(struct blood data)
+{
+    FILE *fp;
+    fp = fopen("Blood Donors Record.txt", "r+");
+    if (fp == NULL)
+    {
+        fp = fopen("Blood Donors Record.txt", "w");
+    }
+    fseek(fp, 0, SEEK_END);
+    fprintf(fp, "%-20s", data.name);
+    fprintf(fp, "%-40s ", data.address);
+    fprintf(fp, "%-2d ", data.age);
+    fprintf(fp, "%d\n", data.blood_type);
+    fclose(fp);
+}
+
+void display(char *file)
+{
+    FILE *fp;
+    fp = fopen(file, "r");
+    char str[20];
+    while (fgets(str, 19, fp) != NULL){
+        printf("%s", str);
+    }
+    fclose(fp);
+}
+
+void lessthen25(char *file)
+{
+    FILE *fp;
+    struct blood data;
+    int age;
+    char str[68];
+    fp = fopen(file, "r");
+    while(fscanf(fp,"%s\t%s\t%d\t%d",&data.name,&data.address,&data.age,&data.blood_type)!=EOF){
+        if(data.age<25 && data.blood_type == 2) {
+            printf("\n%s\t %s\t%2d\t %d",data.name,data.address,data.age,data.blood_type);
+        }
+    }
+    fclose(fp);
+}
+______________________________________________________________________________________
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+void add_info(char *, char *);
+void display(char *);
+void disbys(int, char *);
+
+int main()
+{
+    disbys(1, "student.txt");
+    getch();
+    return 0;
+}
+
+void add_info(char *name, char *file)
+{
+    FILE *fp;
+    fp = fopen(file, "r+");
+    if (fp == NULL)
+    {
+        fp = fopen(file, "w");
+    }
+    fseek(fp, 0, SEEK_END);
+    fputs(name, fp);
+    putc('\n', fp);
+    fclose(fp);
+}
+
+void display(char *file)
+{
+    FILE *fp;
+    fp = fopen(file, "r");
+    char name[30];
+    if(fp == NULL){
+        printf("File do not exist.");
+        getch();
+        exit(1);
+    }
+    while (fscanf(fp, "%s", name) != -1){
+        puts(name);
+    }
+    fclose(fp);
+}
+
+void disbys(int num, char *file)
+{
+    FILE *fp;
+    int i;
+    char name[30];
+    fp = fopen(file, "r");
+    if (fp == NULL){
+        printf("File do not exist.");
+        getch();
+        exit(2);
+    }
+
+    for (i=1;fscanf(fp, "%s", name) != -1; i++);
+    
+    
+    if (fscanf(fp, "%s", name) == -1){
+        printf("There's total %d names.\n", i);
+
+    }
+    rewind(fp);
+    while(fscanf(fp, "%s", name) != -1){
+        if (name[0] == 's' || name[0] == 'S'){
+            puts(name);
+        }
+
+    }
+    fseek(fp, 0, SEEK_END);
+    printf("%s", *fp);
+    fclose(fp);
+}
+_______________________________________________________________________________________

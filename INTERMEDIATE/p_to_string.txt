@@ -1,0 +1,428 @@
+ THE LIKELIHOOD OF A PROGRAM CHRASHING IS IN DIRECT PROPORTIONAL TO THE NUMBER OF POINTERS USED IN IT.
+
+
+
+xstrlen(char *s)
+{
+    int length = 0;
+    while(*s != '\0')
+    {
+        length++;
+        s++;
+    }
+}
+
+xstrcpy(char *t, char *s)
+{
+    while (*s != '\0')
+    {
+        *t = *s;
+        s++;
+        t++;
+    }
+    *t = '\0';
+}
+
+xstrcmp (char *s1, char *s2)
+{
+    while (*s1 == *s2)
+    {
+        if (*s1 =='\0')
+        {
+            return 0;
+        }
+        s1++;
+        s2++;
+    }
+
+    return (*s1 - *s2);
+}
+
+xstrcat(char *t, char *s)
+{
+    while (*t != '\0') {
+        t++;
+}
+    while (*s !='\0') {
+        *t = *s;
+        t++;
+        s++;
+    }
+
+}
+
+______________________________________________________________________________________
+{
+    // char str[15] = "United";
+    // char *str2 = "Front";
+    // char *str3;
+    // str3 = strcat(str, str2);  // returning the pointer pointing to that destination string.
+    // printf("%s\n", str3);
+    // return 0;
+}
+
+/*
+char *p = "Hello"; // pointer is variable, so is string.
+*p = 'M';  // works
+p = "Bye"; // works
+
+const char *q = "Hello"; // sting is constant pointer is not.
+*q = 'M';  // error.
+q = "Bye"; // works
+
+char const *s = "Hello";  // string is constant pointer is not.
+*s = 'M';  // error
+s = "Bye";  // works
+
+char *const t = "Hello";  // pointer is constant string is not.
+*t = 'M';  // works
+t = "Bye";  // error
+
+const char *const u = "Hello";   // string is constant, so is pointer.
+*u = 'M';  // error
+u = "Bye";  // error
+*/
+
+_______________________________________________________________________________________
+{
+    // static char str1[] = "Good";
+    // static char str2[20];
+    // static char str3[20] = "Day";
+    // int l;
+    // l = strcmp( strcat(str3, strcpy(str2, str1)), strcat(str3, "good"));
+    // printf("%d", l);  // output as: 0
+
+    // char str[] = "Way of trouble is out through it";
+    // int i;
+
+    // for (i=0;i<=3;i++)
+    // {
+    //     printf("%c", *(str+i));
+    // }
+    // for (i=0;i<=3;i++)
+    // {
+    //     printf("%c", *(str+18+i));
+        
+    // }
+    // for (i=0;i<=13;i++)
+    // {
+    //     printf("%c", *(str+4+i));
+
+    // }
+    // for (i=0;i<=9;i++)
+    // {
+    //     printf("%c", *(str+22+i));
+
+    // }
+
+
+    // char s[] = "C a of";
+    // char t[] = "is philosophy life";
+    // char u[40];
+    // char *ss = s, *tt = t, *uu = u;
+
+    // while(*ss||*tt)
+    // {
+    //     while(*ss)
+    //     {
+    //         if((*uu++ = *ss++) == ' '){
+    //             break;
+    //         }
+    //     }
+
+    //     while(*tt)
+    //     {
+    //         if((*uu++ = *tt++) == ' '){
+    //             break;
+    //         }
+    //     }
+       
+    // }
+    // *uu = '\0';
+    // puts(u);
+    // return 0;
+// Output:
+// C is a philosophy oflife
+
+    char a[2][2][25] = {
+        {
+            "Jack and Jill",
+            "Went up the hill"
+        },
+        {
+            "Jack fell down",
+            "And broke his crown"
+        }
+    };
+
+    printf("%s %s %s %S\n", &a[0][0][9], &a[0][1][12], &a[1][0][10], &a[1][1][4]);
+    return 0;
+    //Output: Jill hill down 
+}
+______________________________________________________________________________________
+#include<stdio.h>
+#include <string.h>
+char *xstrchr(char *string, char ch);
+int main()
+{
+    char *string = "Hello, world!";
+    char ch = 'o';
+    char *result = xstrchr(string, ch);
+    if (result == NULL) {
+        printf("Character not found.\n");
+    } else {
+        printf("Character found at position %d.\n", result - string);
+    }
+    return 0;
+
+}
+
+char *xstrchr(char *string, char ch) {
+    while (*string != '\0') {
+        if (*string == ch) {
+            return string;  // returning the address.
+        }
+        string++;
+    }
+    return NULL;
+}
+______________________________________________________________________________________
+
+#include <stdio.h>
+#include <string.h>
+char *xstrstr(char *string1, char *string2) {
+    int i, j;
+    for (i = 0; string1[i] != '\0'; i++) {
+        for (j = 0; string2[j] != '\0'; j++) {
+            if (string1[i + j] != string2[j]) { // i is taking us to next word in string
+                break;
+            }
+        }
+        if (string2[j] == '\0') {
+            return &string1[i];
+        }
+    }
+    return NULL;
+}
+int main() {
+    char *string1 = "somewhere over the rainbow";
+    char *string2 = "over";
+    char *result = xstrstr(string1, string2);
+    if (result == NULL) {
+        printf("Substring not found.\n");
+    } else {
+        printf("Substring found at position %d.\n", result - string1);
+    }
+    return 0;
+}
+_______________________________________________________________________________________
+
+#include <stdio.h>
+#include <string.h>
+void swap(char **a, char **b) {
+    char *temp = *a;
+    *a = *b;
+    *b = temp;
+}
+// Function to sort an array of strings in alphabetical order
+void sort_strings(char **names, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (strcmp(names[i], names[j]) > 0) { // two names are compared here with base addresses supplied to strcmp.
+                swap(&names[i], &names[j]);
+            }
+        }
+    }
+}
+int main() {
+    char *names[] = {
+        "Santosh",
+        "Amol",
+        "Santosh Jain",
+        "Kishore",
+    };
+    // Number of names
+    int n = sizeof(names) / sizeof(names[0]);
+    // Sort the names in alphabetical order
+    sort_strings(names, n);
+    // Print the sorted names
+    for (int i = 0; i < n; i++) {
+        printf("%s\n", names[i]);
+    }
+    return 0;
+}
+
+_______________________________________________________________________________________
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+// Function to encode a string
+char *encode(char *str) {
+    // Allocate memory for the encoded string
+    char *encoded_str = malloc(strlen(str) + 1);
+    // Initialize the encoded string
+    strcpy(encoded_str, str);
+    // Iterate over each character in the encoded string
+    for (int i = 0; i < strlen(encoded_str); i++) {
+        // Shift the character by 3 positions to the right according to the ascii table
+        encoded_str[i] = encoded_str[i] + 3;
+    }
+    // Return the encoded string
+    return encoded_str;
+}
+// Function to decode a string
+char *decode(char *str) {
+    // Allocate memory for the decoded string
+    char *decoded_str = malloc(strlen(str) + 1);
+    // Initialize the decoded string
+    strcpy(decoded_str, str);
+    // Iterate over each character in the decoded string
+    for (int i = 0; i < strlen(decoded_str); i++) {
+        // Shift the character by 3 positions to the left
+        decoded_str[i] = decoded_str[i] - 3;
+    }
+    // Return the decoded string
+    return decoded_str;
+}
+// Main function
+int main() {
+    // Original string
+    char *str = "ABCDE";
+    // Encode the string
+    char *encoded_str = encode(str);
+    // Print the encoded string
+    printf("Encoded string: %s\n", encoded_str);
+    // Decode the string
+    char *decoded_str = decode(encoded_str);
+    // Print the decoded string
+    printf("Decoded string: %s\n", decoded_str);
+    // Free the allocated memory
+    free(encoded_str);
+    free(decoded_str);
+    return 0;
+}
+
+_______________________________________________________________________________________
+
+#include <stdio.h>
+#include <string.h>
+
+// Function to compress the string by eliminating multiple blanks
+void compressString(char originalString[], char compressedString[]) {
+    int i, j = 0;
+    int len = strlen(originalString);
+
+    for (i = 0; i < len; i++) {
+        // Skip consecutive blanks
+        if (originalString[i] == ' ' && originalString[i + 1] == ' ') {
+            continue;
+        }
+        compressedString[j++] = originalString[i];
+    }
+
+    // Null-terminate the compressed string
+    compressedString[j] = '\0';
+}
+
+// Function to decompress the string by restoring spaces
+void decompressString(char compressedString[], char decompressedString[]) {
+    int i, j = 0;
+    int len = strlen(compressedString);
+
+    for (i = 0; i < len; i++) {
+        // Add a space before each non-space character
+        if (compressedString[i] != ' ') {
+            decompressedString[j++] = ' ';
+        }
+        decompressedString[j++] = compressedString[i];  // when if block ended it acted.
+    }
+
+    // Null-terminate the decompressed string
+    decompressedString[j] = '\0';
+}
+
+int main() {
+    char originalString[] = "Imperial Palace. Rome. Attention Julius Caesar. Dear Caesar, we have the clarification     you requested. Details to follow by courier. Meanwhile stay clear of Brutus.";
+    char compressedString[1000];
+    char decompressedString[1000];
+
+    // Compress the string
+    compressString(originalString, compressedString);
+
+    printf("Compressed String:\n%s\n", compressedString);
+
+    // Decompress the string
+    decompressString(compressedString, decompressedString);
+
+    printf("\nDecompressed String:\n%s\n", decompressedString);
+
+    return 0;
+}
+______________________________________________________________________________________
+
+#include <stdio.h>
+#include <string.h>
+#include <conio.h>
+
+struct a
+{
+    struct b
+    {
+        int i;
+        float f;
+        char ch;
+    }x;
+
+    struct c
+    {
+        int j;
+        float g;
+        char ch;
+    }y;
+};
+
+int main() 
+{
+    int *p;
+    struct a z;
+
+    fun(&z.y);
+    printf("%d %f %c\n", z.x.i, z.x.f, z.x.ch);
+    getch();
+    return 0;
+}
+
+fun(struct c *p)
+{
+    int offset;
+    struct b* address;
+
+    offset = ((char *) & ((struct c*) (&((struct a*)0)->y)->j) - (char *)((struct a*)0));
+    address = (struct b*) ((char *)&(p->j)-offset);
+    address -> i = 400;
+    address -> f = 3.14;
+    address -> ch = 'c';
+}
+
+_______________________________________________________________________________________
+ /*Let us understand this statement part by part.
+
+)0). 0 is being typecaste In the expression ((struct a pointer to struct a. 
+This expression is pretending that ther variable of type struct a a) 0)> at address 0. 
+The expression & ((( y) gives the address of structure variable y. 
+But not the base address of the structure c. Hence we have typecasted using struct e *. 
+Using this address we can access the member j of the structure variable y. 
+Finally, after taking the address of member j, we have typecasted it using char * to make the subtraction possible. 
+The statement to the right of the operator is straightforward. On subtraction, 
+we get the offset of member j of structure variable y. 
+Now using offset the base address is calculated through the following statement.
+
+address = (struct b*) ((char*) & (pj)-offset);
+
+In the above statement & (p->j) gives the address of member j of structure variable y. 
+Subtracting offset from this yields the address of structure variable x. 
+Using this address, we have stored the values in the member variables i, f and ch. Back into main(). 
+we have printed these values using printf().*/
+
+_______________________________________________________________________________________

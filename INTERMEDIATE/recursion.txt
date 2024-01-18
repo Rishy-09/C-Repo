@@ -1,0 +1,176 @@
+ #include<stdio.h>
+
+#include<math.h>
+int main()
+{
+    printf("C to it that C survives.\n");
+    main ();  // infinite loop.
+    return 0;
+}
+__________________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+int main()
+{
+    int i = 0;
+    i++;
+    if (i <= 5){
+        printf("C adds wings to your thoughts.\n");  // printed only one time.
+        exit(0);
+        main();
+    }
+    return 0;
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+// question 1.
+int normall (int);
+int spec (int);
+int main()
+{
+    int num, a1, a2;
+    printf("Enter the 5 digit number.\n");
+    scanf("%d", &num);
+    a1 = normall (num);
+    printf("The reverse without recursion is %d\n", a1);
+    a2 = spec (num);
+    printf("The reverse of a number with recursion is %d\n", a2);
+
+}
+int normall (int num)
+{
+    int rem, rev= 0;
+    while (num){
+    rem = num % 10;
+    rev = rev+ rem;
+    num = num/ 10;
+    }
+    return (rev);
+
+}
+int spec(int num)
+{
+    int sum = 0;
+    if (num == 0){
+        return (sum);
+    }
+    sum = num % 10 + spec(num/10);  // for summing.
+    return (sum);
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+#include<math.h>
+int fact(int);
+int rec_fact (int);
+int main()
+{
+    int num, a, b;
+
+    printf("Enter the number here.\n");
+    scanf("%d", &num);
+
+    printf("The factors are.\n");
+    b = rec_fact(num);
+    a = fact (num);
+}
+int fact(int num)
+{
+    while (num%2 == 0){
+        printf("%d ", 2);  // for 2 only.
+        num = num/2;
+    }
+
+    for (int i = 3; i<=sqrt(num); i=i+2 )  // for odd number now with 3 to onwards.
+    {  
+        while (num%i == 0){           // using loop to get this form 3 3 3 rather than just returning 3 as its factor, to check again and again.
+            printf("%d ", i);
+            num = num/i;
+            
+        }
+    }
+   if (num > 2){   // it is handling the prime numbers case means if the number is prime itself then no while and for then print it bas.
+        printf("%d ", num);
+    
+    }
+}
+_______________________________________________________________________________________
+QQuestion 4.
+#include<stdio.h>
+void fibo (int, int, int);
+int main ()
+{
+    printf ("%d %d ", 0, 1);
+    fibo (0, 1, 25);
+}
+void fibo(int a, int b, int term)
+{
+    int num;
+    if (term == 0){
+        return;
+    }
+
+    num = a + b;
+    a = b;
+    b = num;
+    printf("%d ", num);
+    fibo (a, b, term - 1);
+}
+_______________________________________________________________________________________
+#include<stdio.h>
+void bina (int);
+void rec_bina (int);
+// question 4.
+int main ()
+{
+    int n;
+    printf("Enter the number to get its binary equivalent: \n");
+    scanf("%d", &n);
+    bina (n);
+    rec_bina(n);
+}
+// non-recursive.
+void bina(int n)
+{
+    int sum = 0;
+    for (; n; n /= 2)
+    {
+        sum += n % 2;
+        sum *= 10;
+    }
+    printf("%d\n", sum);  
+}
+// recursive.
+void rec_bina(int n){
+    int sum = 0;
+    if (n == 0){
+        return;  // simple return se values aa rahi hai jo mil rahi hai last digit se as recusion took place before printf().
+    }
+    rec_bina(n/2);
+    printf("%d", n % 2);
+
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+int sum (int);
+int main ()
+{
+    int n;
+    scanf("%d", &n);
+    int su = sum (n);
+    printf("%d is the sum of first n natural numbers.\n", su);
+}
+int sum (int x)
+{
+    int ans;
+    if (x == 0){
+        return x;
+    }
+    ans = x+sum(x-1);
+    return (ans);
+
+}
+_______________________________________________________________________________________

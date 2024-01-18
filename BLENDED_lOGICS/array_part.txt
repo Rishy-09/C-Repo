@@ -1,0 +1,141 @@
+ #include<stdio.h>
+
+#include<conio.h>
+int main()
+// question 1.
+{
+    int ar1[5] = {10, 20, 30, 40, 50}, ar2[5], i;
+    for(i = 0; i <5; i++){
+        ar2[i] = ar1[4-i];
+    }
+    for (i = 0; i <5; i++){
+        printf("%d ", ar2[i]);
+    }
+    return 0;
+
+}
+________________________________________________________________________________________
+
+#include<stdio.h>
+#include<conio.h>
+# define n 6
+int main()
+// question 2.
+{
+    int arr[n] = {1, 2, 3, 4, 2, 1}, i;
+    for (i = 0; i<6; i++){
+
+        if (arr[i] == arr[5-i]){
+            printf("arr[%d] and arr[%d] are equal\n", i, 5-i);
+
+        }
+        else{
+            printf("arr[%d] and arr[%d] are not equal.\n", i, 5-i);
+        }
+    }
+
+}
+_____________________________________________________________________________________
+
+#define is a preprocessor directive that is used to define macros. The macros are the identifiers defined by #define which are replaced by their value before compilation. We can define constants and functions like macros using #define.
+
+Important Points
+Macros declared using #define are used to store constants and cannot be changed. we cannot assign variables to the macros.
+We cannot use the ‘=’ operator to assign value to the macros (eg. #define PI 3.14).
+We do not use the semicolon ‘;’ at the end of the statement in #define.
+A macro in C is essentially a piece of code or a value that is associated with an identifier. This identifier, known as the macro name, is defined using the #define preprocessor directive. Macros provide a convenient way to substitute code snippets or values throughout your program, improving both readability and maintainability.
+
+Macros are not pointers to memory locations; instead, they are symbolic representations that the compiler replaces with the actual value or code before the program is compiled.
+
+Let's break down the components of a macro using the following syntax:
+
+#define MACRO_NAME MACRO_VALUE
+
+Here, MACRO_NAME is the name you choose for your macro, and MACRO_VALUE is the corresponding value or code snippet. It's important to note that macros do not end with a semicolon.
+
+Let's illustrate this with an example:
+
+#include <stdio.h>
+
+// Define a macro for the value of pi
+#define PI 3.14159
+
+int main() {
+    double radius = 5.0;
+    double area = PI * radius * radius;
+    
+    printf("The area of the circle is: %lf\n", area);
+    
+    return 0;
+}
+In this example, the macro PI is defined with the value 3.14159. When the code is preprocessed, every occurrence of PI in the code is replaced with its corresponding value, resulting in efficient and readable code.
+
+Preprocessor and Preprocessor Directives in C
+Before a C program is compiled, it undergoes preprocessing, a stage where the preprocessor handles various directives indicated by the # symbol. Preprocessor directives provide instructions to the compiler on how to process the code before compilation. For macros, the #define directive is used to define macros, allowing you to specify a macro name and its corresponding value or code snippet. When the code is preprocessed, the macro name is replaced with its value throughout the program.
+
+Types of Macros in C Language
+1. Object-Like Macros
+Object-like macros are simple substitutions of values or code snippets. They are similar to constants and are often used to improve code readability and maintainability by giving meaningful names to commonly used values.
+
+Example:
+
+#define MAX_VALUE 100
+#define PI 3.14159
+2. Function-Like Macros
+Function-like macros mimic the behavior of functions. They accept arguments and can perform complex operations, offering a convenient way to create reusable code blocks.
+
+Example:
+
+#define SQUARE(x) ((x) * (x))
+#define AREA(radius) (PI * SQUARE(radius))
+3. Chain-Like Macros
+Chain-like macros involve using one macro within another. When the code is preprocessed, the parent macro is expanded first, followed by the child macro.
+
+Example:
+
+#define PI 3.14159
+#define AREA(radius) (PI * (radius) * (radius))
+______________________________________
+#include<stdio.h>
+int main()
+// question 3.
+{
+    int arr[25], min;
+    int *poi;
+    poi = arr;
+    for (int i = 0; i<=24; i++){
+        printf("Enter the element of %d index\n", i);
+        scanf("%d", poi);
+        poi++;
+    }
+    for (int i = 0; i<=24; i++){
+        printf("%d ", arr[i]);
+    }
+    min = arr[0];
+    for (int i = 0; i<=24; i++){
+        if (arr[i] < min){
+            min = arr[i];
+        }
+    }
+    printf("\n%d is the minimum value of array.\n", min);
+}
+____________________________________________________________________
+#include <stdio.h>
+// question 4.
+void modify (int *);
+int main(){
+    int arr[10] = {10, 15, 20, 25, 30, 5, 0, 35, 40, 45};
+    modify(arr);
+    for (int i = 0; i<10; i++){
+        printf("%d ", arr[i]);
+    }
+    return 0;
+
+
+}
+void modify (int *ab){
+    for (int i = 0; i<10; i++, ab++){
+        *ab *= 3;
+    }
+    
+}

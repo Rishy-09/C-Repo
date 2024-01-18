@@ -1,0 +1,373 @@
+ #include<stdio.h>
+
+void print_array(float *);
+void swap(float *, float *);
+int main()
+{
+    float array [10];
+    for (int i = 0; i<10; i++){
+        printf("Enter the %dth index real number.\n", i);
+        scanf("%f", &array[i]);
+    }
+
+    for(int i = 0; i<10;i++){
+        for (int j = i+1;j<10;j++){
+            if(array[j]>array[i]){
+                swap(&array[i],&array[j]);
+            }
+        }
+    }
+
+    print_array(array);
+    printf("\nHere it is sorted in descending order.\nSelection sorting.\n");
+
+    return 0;
+}
+void swap (float *p, float *q){
+    float temp;
+    temp = *p;
+    *p = *q;
+    *q = temp;
+}
+void print_array(float *pr){
+    for (int i = 0; i<10; i++){
+        printf("%.2f ", *pr++);  // *pr++ :ye sahi haiiii !!!
+    }
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+
+
+void odd_even(float *, int);
+void duplicate_element(float *, int);
+void frequency_element(float *, int);
+void print_array(float *,int);
+void reverse_print_array(float *,int);
+void swap(float *, float *,int);
+
+
+
+int main()
+{
+    float array [10];
+    int s;
+    s = sizeof(array)/sizeof(array[0]);
+    for (int i = 0; i<s; i++){
+        printf("Enter the %dth index real number.\n", i);
+        scanf("%f", &array[i]);
+    }
+
+    for(int i = 0; i<10;i++){
+        for (int j = i+1;j<10;j++){
+            if(array[j]>array[i]){
+                swap(&array[i],&array[j],s);
+            }
+        }
+    }
+
+    print_array(array,s);
+    printf("\nHere it is sorted in descending order.\nSelection sorting.\n");
+    printf("\nHere is the reverse of array.\n");
+    reverse_print_array(array, s);
+
+    printf("\n\n");
+    printf("The second largest element is %.2f\nThe second smallest element is %.2f", array[1], array[s-2]);
+    // sorted array se uthaayegaa not from the reversed array.
+    frequency_element(array, s);
+    printf("\n\n");
+    printf("The total duplicate elements in the array are:\n");
+    duplicate_element(array, s);
+    printf("\n\n");
+    odd_even(array, s);
+    return 0;
+}
+
+
+
+void swap (float *p, float *q,int s){
+    float temp;
+    temp = *p;
+    *p = *q;
+    *q = temp;
+}
+
+
+
+void print_array(float *pr,int s){
+    for (int i = 0; i<s; i++){
+        printf("%.2f ", *pr++);  // *pr++ :ye sahi haiiii !!!
+    }
+}
+
+
+
+void reverse_print_array(float array[],int s){
+    for (int i = 0;i<s;i++){
+        printf("%.2f ", array[s-i-1]);  // s ki to 10 aar rahi hai par index to 0 to 9 hai isliye ek 1 minus ......
+    }
+    
+}
+
+
+void frequency_element(float array[], int s){
+    int count;
+    for (int i = 0; i<s;i++){
+        count=1;
+        for(int j = 1+i;j<s;j++){
+            if (array[i]==array[j]){
+                count++;
+            }
+        }
+        printf("\nThe frequency of %.2f is %d\n", array[i], count);
+    }
+}
+
+
+
+
+void duplicate_element(float array[], int s){
+    int count=0;
+    for (int i = 0;i<s;i++){
+        for (int j = i+1;j<s;j++){
+            if (array[i]==array[j]){
+                count++;
+            }
+        }
+    }
+    printf(" %d ", count);
+}
+
+
+void odd_even(float array[], int s){    // we can use pointers here.
+    float even[s], odd[s];
+    int j = 0, k = 0;
+    for (int i = 0;i<s;i++){
+        if ( array[i] % 2== 0.0){  // yaha ye float hai isliye % kaam nahi karegaa.
+            even[j] =array[i];
+            j++;
+        }
+        else {
+            odd[k] = array[i];
+            k++;
+        }
+        
+    }
+    
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+
+// bubble sort
+
+
+void swap(int *, int *);
+int main(){
+    int arr[10] = {12, 34, 2, -34, 56, 9, 1234, 0, -384, 3};
+    int s=sizeof(arr)/sizeof(arr[0]);
+    for (int i=0;i<s-1;i++){
+        int flag=0;
+        for(int j=0;j<s-i-1;j++){
+            if(arr[j]>arr[j+1]){
+                swap(&arr[j], &arr[j+1]);
+                flag=1;
+
+            }
+        }
+        if (flag==0){  // whenever the array is sorted it breaks 
+// done for best time complexity management.
+            break;
+        }
+    }
+    printf("The array sorted via bubble method is:\n");
+    for(int i = 0;i<10;i++){
+        printf("%d ", arr[i]);
+
+    }
+    return 9;
+}
+void swap (int *p, int *q){
+    int temp;
+    temp=*p;
+    *p=*q;
+    *q=temp;
+}
+________________________________________________________________________________________
+
+#include<stdio.h>
+
+// insertion sort
+
+
+void sort (int *, int);
+int main(){
+    int arr[10] = {12, 34, 2, -34, 56, 9, 1234, 0, -384, 3};
+    int s=sizeof(arr)/sizeof(arr[0]);
+    sort (arr, s);
+    
+
+    for (int i = 0;i<s;i++){
+        printf("%d ", arr[i]);
+    }
+
+}
+void sort (int arr[], int s){
+    int key,j;
+    for (int i = 1;i<s;i++){  // arr[1] se hi shuru hoga 
+        key=arr[i];
+        j=i-1;  // varna khud se hi comparison ho jaayegaa to while loop terminate.
+
+
+        while(j>=0 && arr[j]>key){
+            arr[j+1]=arr[j];  // us no. ko aage right side ko kardo
+            j=j-1;   // uske aage ke saare ko check karegaa.
+
+        }
+        arr[j+1]=key;        // ek tarah kaa else yaha jo value greater hai usse vahi rahne do bas.
+    }
+
+}
+_______________________________________________________________________________________
+
+#include<stdio.h>
+
+// quick sort
+
+void swap (int *, int *);
+void quick_sort(int *, int, int);
+int partition(int *, int, int);
+void print_array(int *, int);
+
+
+int main()
+{
+    int s;
+    int arr[10] = {12, 34, 2, -34, 56, 9, 1234, 0, -384, 3};
+    s=sizeof(arr)/sizeof(arr[0]);
+    quick_sort(arr, 0, s-1);
+    print_array(arr, s);
+}
+
+
+void quick_sort(int arr[], int lb, int ub){
+    int loc;
+    if (lb<ub){
+        loc=partition(arr, lb, ub);
+        quick_sort(arr, lb, loc-1);
+        quick_sort(arr, loc+1, ub);
+    }
+}
+
+
+int partition (int arr[], int lb, int ub){
+    int pivot, start, end;
+    pivot=arr[lb];
+    start=lb;
+    end=ub;
+    while (start<end)
+    {
+        while (arr[start]<= pivot)
+        {
+            start++;
+        }
+
+        while(arr[end] > pivot)
+        {
+            end--;
+        }
+        
+        if (start<end)
+        {
+            swap (&arr[start], &arr[end]);
+        }
+    }
+    swap (&arr[lb], &arr[end]);
+    return end;
+}
+
+
+void swap (int *p, int *q){
+    int temp;
+    temp =*p;
+    *p=*q;
+    *q=temp;
+}
+
+void print_array(int arr[], int s){
+    for (int i = 0;i<s;i++){
+        printf("%d ", arr[i]);
+    }
+}
+
+_______________________________________________________________________________________
+
+#include<stdio.h>
+// merge sort
+// it is not complete.
+void merge_sort (int *, int, int);
+void merge (int *, int, int, int, int);
+int main()
+{
+    int arr[]={15, 5, 24, 8, 1, 3, 16, 10, 20};
+    int s=sizeof(arr)/sizeof(arr[0]);
+    merge_sort(arr, 0, s);
+    for (int i = 0;i<s;i++){
+        printf("%d " ,arr[i]);
+    }
+}
+
+void merge_sort (int arr[], int lb, int ub)
+{
+    int mid;
+    if (lb <ub){
+        mid=(lb+ub)/2;
+        merge_sort(arr, lb, mid);
+        merge_sort(arr, mid+1, ub);
+        merge(arr, lb, mid, ub, ub);
+    }
+}
+void merge (int arr[],int lb,int mid,int ub, int s)
+{
+    int i, j, k, b[s];
+    i=lb;
+    j=mid+1;
+    k=lb;
+    while (i<= mid && j<=ub)
+    {
+        if (arr[i] <= arr[j])
+        {
+            b[k] = arr[i];
+            i++;
+        }
+        else 
+        {
+            b[k]=arr[j];
+            j++;
+            
+        }
+        k++;
+
+        if (i>mid)
+        {
+            while (j<=ub){  // double checking.
+                b[k] = arr[j];
+                j++;
+                k++;
+            }
+            
+        }
+        else{
+            while (i<=mid)
+            {
+                b[k] = arr[i];
+                i++;
+                k++;
+            }
+        }
+
+    }
+    for (int k=lb;k<=ub;k++){
+        arr[k]=b[k];
+    }
+}

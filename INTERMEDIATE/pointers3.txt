@@ -1,0 +1,161 @@
+ #include<stdio.h>
+
+// void swap(int *, int *);
+// void exchange(int **, int *);
+// int power (int **);
+// float * multiply(int, float);
+int main()
+{
+    // int a, *b, **c, ***d, ****e;
+    // a = 10;
+    // b = &a;
+    // c = &b;
+    // d = &c;
+    // e = &d;
+    // printf("%d %d %d %d %d", a, b, c, d, e);
+    // return 0;
+    
+    // char c, *cc;
+    // int i;
+    // long l;  // here it is acting as a unsigned char
+    // float f;
+    // c = 'Z';
+    // i = 15;
+    // l = 128;
+    // f = 324.14342;
+    // cc = &c;
+    // printf("%c %u\n", *cc, cc);
+    // cc = &i;
+    // printf("%d %u\n", *cc, cc);
+    // cc = &l;
+    // printf("%ld %u\n", *cc, cc);
+    // cc = &f;
+    // printf("%f %u", *cc, cc);   // 0.0000 and address is output.
+
+
+//     int c = 10, d = 20;
+//     printf("Before swap, c = %d d = %d\n", c, d);
+//     swap(&c, &d);
+//     printf("After swap, c = %d d = %d\n", c, d);
+// }
+
+// void swap(int *cc, int *dd){
+//     exchange(&cc, dd);
+// }
+
+// void exchange(int **cc, int *dd){
+//     int t;
+//     t = **cc;
+//     **cc = *dd;
+//     *dd = t;
+
+
+// int a = 5, *aa;
+// aa = &a;
+// a = power(&aa);
+// printf("a = %d aa = %u\n", a, aa);
+// return 0;
+// }
+
+// int power(int **ptr)
+// {
+//     int b;
+//     b = **ptr * **ptr;
+//     return(b);
+
+// int i = 3;
+// float f = 3.50, *prod;
+
+// prod = multiply(i, f);
+// printf("prod = %u value at address = %f\n", prod, *prod);
+// return 0;
+// }
+
+// float * multiply(int ii, float ff)
+// {
+//     float product;
+//     product = ii * ff;
+//     printf("product %f address of product = %u\n", product, &product);
+//     return (&product);   // it is showing an error.
+
+// char *c = 4000;
+// int *i = 4000;
+// //  warning: initialization makes pointer from integer without a cast [-Wint-conversion
+// // it is showing error for all
+// // it actually mean :
+// // you are actually attempting to assign a memory address (which typically consists of 32 or 64 bits of data, depending on your system) into a character variable (which typically stores 8 bits of data).
+// long *l = 4000;
+// float *f = 4000;
+// double *d = 4000;
+
+// printf("c = %u, c + 1 = %u\n", c, c+1);
+// printf("i = %u, i + 1 = %u\n", i, i+1);
+// printf("f = %u, f + 1 = %u\n", f, f+1);
+// printf("l = %u, l + 1 = %u\n", l, l+1);
+// printf("d = %u, d + 1 = %u\n", d, d+1);
+// }
+//  a[i] = *(a+i) = *(i+a) = i[a]
+
+
+_______________________________________________________________________________________
+
+
+
+#include<stdio.h>
+// float a = 3.14;
+//         float **z;
+//         float **y;
+//         float ***x;
+//         float ****v;
+//         float ****w;
+
+//         float **fun1(float *);
+//         float ****fun2(float ***);
+int main()
+{
+    // int i = 10, j = 20, diff;
+    // diff = &j - &i;
+    // printf("address of i = %u address of j = %u\n", &i, &j);
+    // printf("difference of addresses of i and j is %d\n", diff);
+    // return 0;
+
+//     int *i, *j;
+//     j = i * 2;
+//     // error: invalid operands to binary * (have 'int *' and 'int')
+//     //  j = i * 2;
+//     printf("jj = %u\n", j);
+//     return 0;
+    // clrscr();
+//     z = fun1(&a);
+//     printf("%u %f\n", z, **z);
+//     return 0;
+        
+// }
+
+// float **fun1(float *z)
+// {
+//     y = &z;
+//     v = fun2(&y);
+//     return(**v);
+// }
+
+// float ****fun2(float ***x)
+// {
+//     w = &x;
+//     return (w);
+}
+
+
+
+/*
+A subscripted variable: it is a collective name given to a group of 'similar quantities'.
+A subscripted avariale is also called an 'array'.
+
+accessing the elements using a subscript if there is no fixed logic in accessing the elements.
+or else use pointers if to access from beginning to end or from end to beginning or with any such definate logic.
+stud[2][1]
+*(stud[2] + 1)
+*(*(stud+2)+1)
+general formula for accessing each element of an array using pointers:
+*(base address + row no. * no. of columns + column no.)
+*/

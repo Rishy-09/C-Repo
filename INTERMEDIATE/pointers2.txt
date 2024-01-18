@@ -1,0 +1,292 @@
+ 3 - D array:
+
+#include<stdio.h>
+int main()
+{
+    int a[2][3][2] = {
+        {
+            {2, 4},
+            {7, 8},
+            {3, 4}
+        },
+
+        {
+            {2, 2},
+            {2, 3},
+            {3, 4}
+        }
+    };
+
+    printf("%u\n", a);
+    printf("%u\n", *a);
+    printf("%u\n", **a);
+    printf("%u\n", ***a);
+    printf("%u\n", a+1);
+    printf("%u\n", *a+1);
+    printf("%u\n", **a+1);
+    printf("%u\n", ***a+1);
+
+}
+
+#include<stdio.h>
+
+// passing 3-D array to a function.
+void display(int *q, int ii, int jj, int kk);
+void show(int (*q)[3][4], int ii, int jj, int kk);
+void print(int q[][3][4], int ii, int jj, int kk);
+
+int main()
+{
+    int i, j, k;
+    int a[2][3][4] = {
+        {
+            1,2,3,4,
+            5,6,7,8,
+            9,3,2,1
+        },
+
+        {
+            2,3,5,7,
+            4,3,9,2,
+            1,6,3,6
+        }
+    };
+
+    display(a,2,3,4);
+    show(a,2,3,4);
+    print(a,2,3,4);
+    return 0;
+}
+
+// error:passing argument 1 of 'display' from incompatible pointer type [-Wincompatible-pointer-types]
+//      display(a,2,3,4);
+void display(int*q, int ii, int jj, int kk)
+{
+    int i, j, k;
+    for (i = 0;i<ii;i++){
+        for (j = 0;j<jj;j++){
+            for (k = 0;k<kk;k++){
+                printf("%d ", *(q+i*jj*kk+j*kk+k));
+
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+
+void show(int (*q)[3][4], int ii, int jj, int kk)
+{
+    int i, j, k;
+    int *p;
+    for (i = 0;i<ii;i++){
+        for (j = 0;j<jj;j++){
+            p = q[i][j];
+            for (k = 0;k<kk;k++){
+                printf("%d ", *(p+k));
+
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+
+void print(int q[][3][4], int ii, int jj, int kk)
+{
+    int i, j, k;
+    int *p;
+    for (i = 0;i<ii;i++){
+        for (j = 0;j<jj;j++){
+            for (k = 0;k<kk;k++){
+                printf("%d ", q[i][j][k]);
+
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+______________________________________________________________________________________
+#include<stdio.h>
+
+// returning 2-D array from function.
+3 possible ways:
+a pointer to an integer.
+a pointer to the 0th 1-D array.
+a pointer to the 2-D array.
+# define ROW 3
+# define COL 4
+
+// int i, j;
+//     int *a;
+//     int *fun1();
+
+//     int (*b)[COL];
+int (*fun2())[COL];
+int (*fun3())[ROW][COL];
+
+int main()
+{
+    int i, j;
+    int *a;
+    // int *fun1();
+
+    int (*b)[COL];
+    // int (*fun2())[COL];
+    int *p;
+
+    int (*c)[ROW][COL];
+    // int (*fun3())[ROW][COL];
+
+    a = fun1();
+    printf("Array a[][] in main():\n");
+    for (i=0;i<ROW;i++){
+        for (j=0;j<COL;j++){
+            printf("%d ", *(a+i*COL + j));
+        }
+        printf("\n");
+    }
+
+    b = fun2();
+    printf("Array b[][] in main():\n");
+    for (i=0;i<ROW;i++){
+        p = b+i;
+        for (j=0;j<COL;j++){
+            printf("%d ", *(p));
+            p++;
+        }
+        printf("\n");
+    }
+
+    c = fun3();
+    printf("Array c[][] in main():\n");
+    for (i=0;i<ROW;i++){
+      
+        for (j=0;j<COL;j++){
+            printf("%d ", *(c)[i][j]);
+            p++;
+        }
+        printf("\n");
+    }
+
+    return 0;
+
+
+}
+
+int *fun1()
+{
+    static int a[ROW][COL] = {
+            1,2,3,4,
+            5,6,7,8,
+            9,3,2,1
+        };
+
+    int i, j;
+
+    printf("Array a[][] in fun1():\n");
+    for (i=0;i<ROW;i++){
+        for(j=0;j<COL;j++){
+            printf("%d ",a[i][j]);
+        }
+        printf("\n");
+    }
+
+    return (int *)a;
+    
+}
+
+int (*fun1())[COL]
+{
+    static int b[ROW][COL] = {
+            1,2,3,4,
+            5,6,7,8,
+            9,3,2,1
+        };
+
+    int i, j;
+
+    printf("Array b[][] in fun2():\n");
+    for (i=0;i<ROW;i++){
+        for(j=0;j<COL;j++){
+            printf("%d ",b[i][j]);
+        }
+        printf("\n");
+    }
+
+    return b;
+    
+}
+int (*fun1())[ROW][COL]
+{
+    static int c[ROW][COL] = {
+            1,2,3,4,
+            5,6,7,8,
+            9,3,2,1
+        };
+
+    int i, j;
+
+    printf("Array C[][] in fun3():\n");
+    for (i=0;i<ROW;i++){
+        for(j=0;j<COL;j++){
+            printf("%d ",c[i][j]);
+        }
+        printf("\n");
+    }
+
+    return (int (*)[ROW][COL])c;
+    
+}
+
+/*
+ a = fun1();
+         ^~~~
+sam.c:28:7: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+     a = fun1();
+       ^
+sam.c:40:11: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+         p = b+i;
+           ^
+sam.c: At top level:
+sam.c:64:6: error: conflicting types for 'fun1'
+ int *fun1()
+      ^~~~
+sam.c:28:9: note: previous implicit declaration of 'fun1' was here
+     a = fun1();
+         ^~~~
+sam.c:86:7: error: conflicting types for 'fun1'
+ int (*fun1())[COL]
+       ^~~~
+sam.c:64:6: note: previous definition of 'fun1' was here
+ int *fun1()
+      ^~~~
+sam.c:107:7: error: conflicting types for 'fun1'
+ int (*fun1())[ROW][COL]
+       ^~~~
+sam.c:64:6: note: previous definition of 'fun1' was here
+ int *fun1()*/
+
+and so for the returning 3-D array from a function just some logic statements have changed
+4 possible ways:
+a pointer to an integer.
+a pointer to the 0th 1-D array.
+a pointer to the 0th 2-D array.
+a pointer to the 3-D array.
+
+
+
+________________________________________________________________________________________-
+{
+    static int a[] = {0, 1, 2, 3, 4};
+    static int *p[] = {a, a+1, a+2, a+3, a+4};
+    printf("%u %u %u %u %u\n", &a[0], &a[1], &a[2], &a[3], &a[4]);
+    printf("%u %u %d\n", p, *p, *(*p));
+    return 0;
+}
+    /*Output:
+    4210692 4210696 4210700 4210704 4210708
+4210712 4210692 0*/
+
+_________________________________________________________________________________________

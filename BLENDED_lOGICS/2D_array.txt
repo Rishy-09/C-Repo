@@ -1,0 +1,255 @@
+    int stud[4][2];
+
+    int i, j;
+    for(i = 0; i<=3; i++)
+    {
+        printf("Enter roll number and marks.\n");
+        scanf("%d %d", &stud[i][0], &stud[i][1]);
+
+    }
+
+    for (i = 0; i<=3; i++){
+        printf("%d  %d\n", stud[i][0], stud[i][1]);
+    }
+__________________________________________________________________________________________--
+
+    int stud [4][2] = {  // along declaration.
+        {12, 2},
+        {23, 4},
+        {45, 6},
+        {34, 5}
+    };
+    for (int i = 0; i<=3; i++){
+        printf("%d %d\n", stud[i][0], stud[i][1]);
+    }
+    return 0;
+______________________________________________________________________________________-
+
+    int stud [4][2] = {1234, 54, 1212, 34, 1434, 80, 1312, 78};
+    // less in readability but another way as is.
+    for (int i = 0; i<4; i++){
+        printf("%d %d\n", stud[i][0], stud[i][1]);
+    }
+
+}
+_______________________________________________________________________________________
+
+// array with pointers.
+    // int s[5][2] means setting up an array of 5 elements each of which is a 1-D array containing 2 integers.
+    // imagine s to a 1-D array then s[0] gives the address of zeroth 1-D array, s[1] gives the address of 1st 1-D array.
+     int stud [4][2] = {  // along declaration.
+        {12, 2}, // 0th 1-D array
+        {23, 4}, // 1st 1-D array
+        {45, 6}, // 2nd 1-D array
+        {34, 5}  // 3rd 1-D array
+    };
+    printf("%d %d\n", stud[0][0], stud[1][0]); // giving values.
+    printf("%d %d\n", &stud[0], stud[1]);  // giving address of 1-D arrays.
+ 
+_______________________________________________________________________________________
+
+int s[4][2] = {
+        {1234, 56},
+        {1212, 33},
+        {1434, 80},
+        {1312, 78}
+    };
+    int i;
+    for (int i = 0; i<= 3; i++){
+        printf("Address of %dth 1-D array = %u\n", i, s[i]);
+    }
+
+_______________________________________________________________________________________
+
+// for refer to elements using pointers.
+    int s[4][2] = {
+        {1234, 56},
+        {1212, 33},
+        {1434, 80},
+        {1312, 78}
+    };
+    int i, j;
+    for (i = 0; i<= 3; i++){
+        for (j = 0; j<=1;j++){
+            // printf("%d\n", (*(s + i)+j));  // printing address of every element.
+            printf("%d\n", *(*(s + i)+j));
+        }
+    }
+_______________________________________________________________________________________
+#include<stdio.h>
+void display (int *q, int, int);  // pure pointer based.
+//void show (int (* q)[4], int , int);  // ye wala nahi attaa.
+//void print(int q[][4], int , int);  // ye array ke address based.
+int main()
+{
+    // 3 ways in which  a 2-D array can be passed to a function.
+    int a[3][4] = {
+        1,2,3,4,
+        5,6,7,8,
+        9,0,1,6
+    };
+    display (a, 3, 4);
+    //show (a, 3, 4);
+    //print(a, 3, 4);
+    return 0;
+}
+void display(int *q, int row, int col){
+    int i, j;
+    for (i = 0; i<row; i++){
+        for (j = 0; j<col; j++){
+            printf("%d", *(q +i*col +j));
+            printf("\n");
+        }
+        printf("\n");
+    }
+____________________________________leaving for now.___________________________________
+
+exercise.
+int n[3][3] = {
+        2, 4, 3,
+        6, 8, 5,
+        3, 5, 1
+    };
+    printf("\n%u %u %d", n[0][0], n[2][0], n[2][2]); // here n[0] = *n as address of 0th 1-D array.
+    // n[3][3] ke liye random vlaue aa rahi hai kyoki n[2][2] tak ki to 2-D array hai.
+______________________________________________________________________________________-
+#include<stdio.h>
+int main()
+{
+	int n[3][3] = {
+		2, 4, 3,
+		6, 8, 5,
+		3, 5, 1
+	};
+	int i, *ptr;
+	ptr = n;
+	for (i = 0; i <= 8; i++)
+		printf("\n%d", *(ptr + i));
+	return 0;
+}
+Output:
+2
+4
+3
+6
+8
+5
+3
+5
+
+1 
+_______________________________________________________________________________________
+
+#include<stdio.h>
+int main()
+{
+	int n[3][3] = {
+		2, 4, 3,
+		6, 8, 5,
+		3, 5, 1
+	};
+	int i, j;
+	for (i = 0; i <= 2; i++)
+		for (j = 0; j <= 2; j++)
+			printf("\n%d %d", n[i][j], *(*(n + i) + j));
+	return 0;
+}
+Output:
+2 2
+4 4
+3 3
+6 6
+8 8
+5 5
+3 3
+5 5
+1 1
+
+___________________________________________________________________________
+
+#include<stdio.h>
+int main()
+{
+	int twod[][] = {
+		2, 4,
+		6, 8
+	};
+	printf("\n%d", twod);
+	return 0;
+}
+Error: missing subscript in initialization. It is necessary to mention the second subscript, while 1st is optional.
+
+____________________________________________________________________________
+
+questions of code.
+
+1.
+
+ // isme 3 2-D array hai usme 2 1-D array hai usme 3 integers hai.
+    int threed[3][2][3] = {
+        {
+            1,2,3,
+            4,5,6,
+        },
+        {
+            7,8,9,
+            10,11,12,
+        },
+        {
+            13,14,15,
+            16,17,18,
+        }
+    };
+    printf("The first element is: %d\n", threed[0][0][0]);
+    printf("The last element is: %d\n", threed[2][1][2]);
+    return 0;
+
+_______________________________________________________________________________________
+2.
+ int arr[5][5] = {
+        35,2,3,4,5,
+        6,7,8,9,10,
+        11,12,13,14,15,
+        16,17,18,19,20,
+        21,22,23,24,25
+    };
+    int max = arr[0][0];
+    for (int i = 0; i<5; i++){
+        for (int j = 0; j<5; j++){
+
+            if (arr[i][j] > max){
+                max = arr[i][j];
+
+            }
+            
+        }
+
+    }
+    printf("%d is the largest number.", max);
+    return 0;
+_______________________________________________________________________________________
+
+3. 
+  // finding transpose.
+  int tran[4][4];
+  int mat[4][4] = {
+    1,2,3,4,
+    5,6,7,8,
+    9,10,11,12,
+    13,14,15,16, // agar ye line naa likhe to 0 value print hogi.
+  };  // ye lagaana na bhulee.
+
+for (int i = 0; i<4; i++){
+    for (int j = 0; j< 4; j++){
+        tran[i][j] = mat[j][i];
+    }
+}
+
+
+
+for(int i = 0; i<4;i++){
+    for(int j = 0;j<4; j++){  // pirnting transpose.
+        printf("%d ",tran[i][j]);
+    }
+    printf("\n");
+ }
